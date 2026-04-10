@@ -1,0 +1,9 @@
+/* Font Awesome 6 Free — bundled locally, zero CDN dependency */
+@import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
+@import '@fortawesome/fontawesome-free/css/solid.min.css';
+@import '@fortawesome/fontawesome-free/css/regular.min.css';
+@import '@fortawesome/fontawesome-free/css/brands.min.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

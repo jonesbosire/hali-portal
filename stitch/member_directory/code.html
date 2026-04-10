@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Member Directory | HALI Access Partner Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#ffffff",
+              "on-primary-container": "#dff9ff",
+              "on-primary-fixed-variant": "#004e5a",
+              "secondary-fixed-dim": "#ffb955",
+              "error": "#ba1a1a",
+              "tertiary": "#745000",
+              "outline-variant": "#bec8cb",
+              "secondary": "#835500",
+              "surface-container-highest": "#d9e3f9",
+              "on-tertiary-fixed-variant": "#5f4100",
+              "inverse-surface": "#273141",
+              "surface": "#f9f9ff",
+              "surface-container": "#e7eeff",
+              "surface-tint": "#006877",
+              "surface-container-high": "#dee8ff",
+              "secondary-fixed": "#ffddb4",
+              "error-container": "#ffdad6",
+              "on-tertiary-container": "#fff2e2",
+              "background": "#f9f9ff",
+              "inverse-primary": "#81d3e4",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#a3eeff",
+              "tertiary-container": "#93670a",
+              "on-secondary": "#ffffff",
+              "primary": "#00606e",
+              "on-secondary-container": "#6b4500",
+              "secondary-container": "#feae2c",
+              "on-primary": "#ffffff",
+              "tertiary-fixed": "#ffdeac",
+              "on-surface-variant": "#3e484b",
+              "on-primary-fixed": "#001f25",
+              "outline": "#6f797b",
+              "on-tertiary-fixed": "#281900",
+              "surface-variant": "#d9e3f9",
+              "primary-container": "#1a7a8a",
+              "surface-container-low": "#f0f3ff",
+              "on-secondary-fixed": "#291800",
+              "on-background": "#121c2c",
+              "surface-bright": "#f9f9ff",
+              "surface-dim": "#d0daf0",
+              "tertiary-fixed-dim": "#f4bd5f",
+              "inverse-on-surface": "#ebf1ff",
+              "on-surface": "#121c2c",
+              "on-tertiary": "#ffffff",
+              "on-error-container": "#93000a",
+              "primary-fixed-dim": "#81d3e4",
+              "on-secondary-fixed-variant": "#633f00"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- SideNavBar Monolith -->
+<aside class="fixed left-0 top-0 h-full w-[220px] z-40 bg-[#00606e] dark:bg-slate-950 shadow-xl dark:shadow-none flex flex-col py-6 gap-4">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-bold text-white dark:text-teal-50 leading-tight">HALI Access</h1>
+<p class="text-xs text-teal-50/60 font-medium">Partner Portal</p>
+</div>
+<nav class="flex flex-col gap-1 flex-1">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 font-['Space_Grotesk'] font-medium text-sm tracking-tight hover:bg-[#1a7a8a]/50 transition-colors duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Partners (Active) -->
+<a class="flex items-center gap-3 bg-[#1a7a8a] text-white rounded-full px-4 py-2 mx-2 font-['Space_Grotesk'] font-medium text-sm tracking-tight scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">handshake</span>
+<span>Partners</span>
+</a>
+<!-- Analytics -->
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 font-['Space_Grotesk'] font-medium text-sm tracking-tight hover:bg-[#1a7a8a]/50 transition-colors duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span>Analytics</span>
+</a>
+<!-- Events -->
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 font-['Space_Grotesk'] font-medium text-sm tracking-tight hover:bg-[#1a7a8a]/50 transition-colors duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">event</span>
+<span>Events</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 mt-auto font-['Space_Grotesk'] font-medium text-sm tracking-tight hover:bg-[#1a7a8a]/50 transition-colors duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-220px)] z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none flex justify-between items-center h-16 px-8 ml-[220px]">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary/40 transition-all outline-none" placeholder="Search members or organizations..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6 font-['Inter'] text-sm font-semibold">
+<button class="text-slate-500 dark:text-slate-400 hover:text-[#1a7a8a] transition-all">Support</button>
+<div class="relative">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-secondary rounded-full border-2 border-white"></span>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/20">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="close-up portrait of a professional man in a tailored blazer with a friendly expression and soft office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfCqcZBXhqutzAb2uuUiSE0isEz59V2cSUvo-9mm4i04tIqBJs-sw22jREQ0z7dvwoHL4R_292raChIxUIAs5v_wNVAY7GHBL-DrjfK9BJJWl6tXSV5l8VEPNA4OmOG9vGl-kVUr7DMF8crUZOk14bnDQ4RSEf024IpBeYovnDRbvfDlASUo3OUgy5PFlWSkvgHHj4zGV_tuM-sBrSLiVePI91Bbf0Dl6NmUa6VxVdShLmZ5BCswjTzX1-IemmDR5-c9Hx7yw2DHg"/>
+<span class="text-on-surface">Alex Mwangi</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-[220px] pt-16 min-h-screen">
+<div class="p-10 max-w-7xl mx-auto">
+<!-- Page Header Section -->
+<div class="mb-12">
+<div class="flex items-end justify-between gap-8">
+<div class="max-w-2xl">
+<span class="text-secondary font-bold text-xs tracking-widest uppercase mb-2 block">Network Ecosystem</span>
+<h2 class="text-5xl font-bold text-on-surface font-headline tracking-tight mb-4">Member Directory</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">Connect with high-impact organizations across the continent dedicated to expanding access to higher education for Africa's most talented students.</p>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-4xl font-bold text-primary font-headline">450+</span>
+<span class="text-[10px] uppercase tracking-tighter text-outline font-bold">Total Active Partners</span>
+</div>
+</div>
+</div>
+<!-- Filter Bar Section (Tonal Depth, No-Line) -->
+<section class="bg-surface-container-low rounded-xl p-6 mb-10">
+<div class="flex flex-wrap items-center gap-4">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mr-2">Filter by:</span>
+<!-- Country Filter -->
+<div class="relative group">
+<button class="bg-surface-container-lowest px-4 py-2 rounded-full text-sm font-medium text-on-surface flex items-center gap-2 hover:bg-white transition-colors">
+                            Country
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+<!-- Region Filter -->
+<div class="relative group">
+<button class="bg-surface-container-lowest px-4 py-2 rounded-full text-sm font-medium text-on-surface flex items-center gap-2 hover:bg-white transition-colors">
+                            Region
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+<!-- Org Type Filter -->
+<div class="relative group">
+<button class="bg-surface-container-lowest px-4 py-2 rounded-full text-sm font-medium text-on-surface flex items-center gap-2 hover:bg-white transition-colors">
+                            Organization Type
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+<div class="ml-auto flex items-center gap-2">
+<span class="text-xs text-on-surface-variant italic">Active Filters:</span>
+<div class="bg-secondary-container/20 text-on-secondary-container px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1">
+                            East Africa
+                            <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
+</div>
+<button class="text-primary text-xs font-bold hover:underline ml-2">Clear All</button>
+</div>
+</div>
+</section>
+<!-- Responsive Bento-style Grid of Organization Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Org Card 1 -->
+<div class="group bg-surface-container-lowest p-6 rounded-xl transition-all duration-300 hover:shadow-[0_32px_64px_-12px_rgba(18,28,44,0.08)] relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="abstract geometric corporate logo for a tech-focused non-profit organization using navy and teal colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOpDQiQQVHuUex5kdfEjzPgQgFD3Q4GLMeVJHBeVPtSUpoGAQ4ycqdsYxJKsXU0DvNaFSQzJC9zwLpgEJEuQFoyUxtGcnd7LPpgdwJ7xfAtQMAhkyaUW9uleTDadop_4cbtkv6gvsZyoaeA6eYodnEwaJzJ3k1psgpuhcs9e_H_wGE2sKJrpY0Srd-DHlfrZ7FA56JiBKl7wkR_K5WIakaMO9kuP5J30kP-k7ADktO6jcOQmwzTHmBVvIsxSqUy1XRBOfX1zRjUGY"/>
+</div>
+<div class="bg-surface-container-low px-2 py-1 rounded-lg flex items-center gap-2">
+<img class="w-5 h-3 object-cover rounded-sm" data-alt="flag of Kenya waving in gentle breeze with vibrant colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtlahlIZi6CuvNhm969KhpHcpcJOKQ686BoXzE8NWGP_gi1RpjekplSCdbekuZ6XuYn4frInMMSH_luYBj9QwSW1tZh-20lH1yjvMCIKXU-BnvfWQMnwgrwoCuLnzNSBlxq_JQqrRdxSePUq8Qas-V2C3zqABAi0ZfiVvlVU8J9AvjKo5d5A5CT8tnPiUARZJTCL6Fn2caP8ic_B5y03nj0PTqGonhBvjA7sRPFcpYYdmVbVFf5V7lonQaTLpgGZhb6HUbh9Oz2aQ"/>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Kenya</span>
+</div>
+</div>
+<h3 class="text-xl font-bold text-on-surface font-headline mb-2 leading-tight">Equity Group Foundation</h3>
+<p class="text-on-surface-variant text-sm mb-6 line-clamp-2 leading-relaxed">Dedicated to championing socio-economic prosperity of people in Africa by empowering their potential through education and leadership.</p>
+<div class="flex items-center gap-3 pt-6 border-t border-outline-variant/10">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">person</span>
+</div>
+<div>
+<p class="text-xs text-outline font-medium">Primary Contact</p>
+<p class="text-sm font-semibold text-on-surface">Dr. James Mwangi</p>
+</div>
+<button class="ml-auto w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Org Card 2 -->
+<div class="group bg-surface-container-lowest p-6 rounded-xl transition-all duration-300 hover:shadow-[0_32px_64px_-12px_rgba(18,28,44,0.08)] relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="stylized mountain peaks logo for an educational initiative with warm gold and amber tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOG_mX5mD38Jg7XF_G2al547XJ-O5TN_TDKXYDeX5ae8pIvU8BTLZ_YbzL3frLNrdVrDWViaUImOEArv-8zWnES9A_PA2Gr_enlTmAA-T5L9E3HTS57aBfMXAEwB3_YsNKlzyt1Fa4RpGHuIvwnmDRvqGtWYmcgLLJOzh_Q-rLmK4u_aH_tuCCv6qLkUGClD3o12r859ufuKjgQvPPav1yYau0PMnJVcsfeQoo_-78YP6ZXONoUeKUiUMEFvpKpBoMPxpDVWOPPvI"/>
+</div>
+<div class="bg-surface-container-low px-2 py-1 rounded-lg flex items-center gap-2">
+<img class="w-5 h-3 object-cover rounded-sm" data-alt="flag of Rwanda with its distinctive yellow, green, and blue stripes and yellow sun" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5w6_oHeNyfml5H_KCX_1uVEkyflrXVIjTc2Wq5dGRV-rSi9GAzT2ELCTSUjF1YZCyOY8q7KS4CNeAc20wlwH8hkOM6zZXBAPfwVUzEnwBWjYyiQRMSIqVHXqBhtArQjcKvE2kN5HQLj0HanVqVtENlHYZLXUxzpveUrPhatNBuStP7Qe2Mo1ImWC91YDmS8UhLwmiB2ppEdx73YoqFtusXsHI4cY5tDmpZmfoGk23jsXkNL2jUlgRW3atsHRVD6_fe8r7j2Ze64E"/>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Rwanda</span>
+</div>
+</div>
+<h3 class="text-xl font-bold text-on-surface font-headline mb-2 leading-tight">Akilah Institute</h3>
+<p class="text-on-surface-variant text-sm mb-6 line-clamp-2 leading-relaxed">Providing high-quality competency-based market-relevant education to young women in East Africa to transform their lives.</p>
+<div class="flex items-center gap-3 pt-6 border-t border-outline-variant/10">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">person</span>
+</div>
+<div>
+<p class="text-xs text-outline font-medium">Primary Contact</p>
+<p class="text-sm font-semibold text-on-surface">Elizabeth Dearborn</p>
+</div>
+<button class="ml-auto w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Org Card 3 -->
+<div class="group bg-surface-container-lowest p-6 rounded-xl transition-all duration-300 hover:shadow-[0_32px_64px_-12px_rgba(18,28,44,0.08)] relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="clean minimal circular logo with organic flowing lines for a sustainability focused group" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbYbw1SpaUO6yP2FYlHMSoTHSMc2dzPjIe-B32tU4NnMoj_sQELe3RtgfbBnc02nv91o9w98ycOqhfO7ZZC5cCEBOL-xJquOnfmZMp5CNh8p_mwpHbl6W9ZPBzdJKpDaKAcyfI2Bub5i5-vut7FgIPpMWs-k_MZ-2ZV8aVg5un4nYWlvt-s1rtm4VQbqAMMTx_lwlA0ceR7VvrNOk5ENb0LVFaKf2jn6pRfW83U4Jh6yzFm_amBbW0MV7pmAmaxmphA2CmjVRlEG4"/>
+</div>
+<div class="bg-surface-container-low px-2 py-1 rounded-lg flex items-center gap-2">
+<img class="w-5 h-3 object-cover rounded-sm" data-alt="flag of South Africa with its colorful Y-shape design representing unity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzmfKgSkbWOqkssucfRw1zO4u8jqhGhM3-228_2TcLRTfZaWIHgK94BCi4MeX2L_N0qRqP8GiVgP8FZ9PAE2feTqn5AqlreZSpXrZ0bXPzc5fNmNI85zLvqP10lCNtpWCD-FDxNuwlEPiQg6SmLhF3e-ExB1n7ZmfnohahIae2WPNIeOcwYVODP7Jq-_xM5gGjJu07EzdgR_n7GOOM5IyAL8_ZhKPFSmHDBhgoRaRpxbBurdCUrh9W0FJN0geDdVLUX2KvsKQO9Jk"/>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">South Africa</span>
+</div>
+</div>
+<h3 class="text-xl font-bold text-on-surface font-headline mb-2 leading-tight">African Leadership Academy</h3>
+<p class="text-on-surface-variant text-sm mb-6 line-clamp-2 leading-relaxed">Seeking to transform Africa by developing a powerful network of over 6,000 leaders who will work together to address the continent’s greatest challenges.</p>
+<div class="flex items-center gap-3 pt-6 border-t border-outline-variant/10">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">person</span>
+</div>
+<div>
+<p class="text-xs text-outline font-medium">Primary Contact</p>
+<p class="text-sm font-semibold text-on-surface">Chris Khaemba</p>
+</div>
+<button class="ml-auto w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Org Card 4 -->
+<div class="group bg-surface-container-lowest p-6 rounded-xl transition-all duration-300 hover:shadow-[0_32px_64px_-12px_rgba(18,28,44,0.08)] relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="modern abstract emblem for a foundation with interconnected nodes and warm orange gradients" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYAVHEHnF8quOhfuWnZ0eJ6S1JFmZD6GSSJ6RVvMXVkfexbWnQEScnOtw0xXYCaQdKLYjIVbslr6cs4CqFK7T8PuwytcmzHpKg4WFQ6fA1tzRjbL_S4WKuRtIHWIC4dSx7BMm2sdftdQYcHYSOtvmSz0dePSZKtecZlj3ZJidSLsJPpk_WnpdBmGbS2KySGOkunCJ7oYKmcj-pOQLgSG86aNN0UcmigE1yF225QaRsWIl5yqR1AXFB9Dy5dEILuOrbmc4RDM2dByk"/>
+</div>
+<div class="bg-surface-container-low px-2 py-1 rounded-lg flex items-center gap-2">
+<img class="w-5 h-3 object-cover rounded-sm" data-alt="flag of Ghana with its horizontal red, gold, and green stripes and central black star" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0_TZqk-XAXcPWmiJPRFAs_jVBbAPXkjClDiM_cQv5BdhylAxv1U6AXFp-zKywlOq8y18v9cwknsyaz7nyyhJHKDJgTEOWEJ6iKruyviCwRYi5SNIqI44qxC_tV-qfnxRvbG8483eVxsEKdaySMEPkLG4mjdU7DSrWRXLfJtJ59wE8wv6unXFzx6h7enVOrlM6zGITa9jDfyQiPjGk9Ca14FYiOoOrwp9f5Vt_VJUJKiqc3HGDlXuW4htKu8e9izcCqXMxc0mfNW8"/>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Ghana</span>
+</div>
+</div>
+<h3 class="text-xl font-bold text-on-surface font-headline mb-2 leading-tight">Mastercard Foundation</h3>
+<p class="text-on-surface-variant text-sm mb-6 line-clamp-2 leading-relaxed">One of the largest foundations in the world, working with visionary organizations to enable young people in Africa to access quality education.</p>
+<div class="flex items-center gap-3 pt-6 border-t border-outline-variant/10">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">person</span>
+</div>
+<div>
+<p class="text-xs text-outline font-medium">Primary Contact</p>
+<p class="text-sm font-semibold text-on-surface">Reeta Roy</p>
+</div>
+<button class="ml-auto w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Org Card 5 -->
+<div class="group bg-surface-container-lowest p-6 rounded-xl transition-all duration-300 hover:shadow-[0_32px_64px_-12px_rgba(18,28,44,0.08)] relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="monogram logo for an urban development council using strong vertical lines and charcoal grey" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSKWez_ySby_R_C-kngAjxAI_Bne7QYJo3KrMaadBAqzLFatI9l9juxOUqdSTLqzcCPTOD3o6QrBHJ5BmztcdIWCZEADh6q9f_H0GTLY_FESX44IRzyAda92-Mgl1jrlXDWD_GNZ6y1LxqR_ye9NRqdqOW19Pml8l-FMzfEXY70MGDISiWIMMgMPOImV-5yp1kt45m26a9jBdC-em9nz_lF2rcA_CNdDT1fW9xIGMnT0GnbhzusLXXilOowE51Tw_O2_eAOi585U4"/>
+</div>
+<div class="bg-surface-container-low px-2 py-1 rounded-lg flex items-center gap-2">
+<img class="w-5 h-3 object-cover rounded-sm" data-alt="flag of Ethiopia featuring green, yellow, and red horizontal stripes with a central blue disk and gold star" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyUbIh0Uq5aPyBU9-wvsFAOji6l_jKenoU-VxZX9QxsqDU5iEl8zsM2SqlMaK4h9V3sEIUs4MA_egrO8D-IrIUhnkmnUr-J8ksRKCdrxcTOg72awwTMjCasJe-4BXWPZYje5u_B4BBn3Ds6zGSr4-MSw3btvOWOE3UlT7DMDjOkfH5iX8m1SOwMF1HPsimpuOAitEfX8D449ApzTi_7XvvB45rIXwUEgHtau0jCeCCy1qJ4JUjLDm8NHqtXrzEsDvs_E0HlfFaNc0"/>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Ethiopia</span>
+</div>
+</div>
+<h3 class="text-xl font-bold text-on-surface font-headline mb-2 leading-tight">Haile-Manas Academy</h3>
+<p class="text-on-surface-variant text-sm mb-6 line-clamp-2 leading-relaxed">A world-class residential school in Ethiopia for promising high school students from across the country, focusing on leadership and critical thinking.</p>
+<div class="flex items-center gap-3 pt-6 border-t border-outline-variant/10">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">person</span>
+</div>
+<div>
+<p class="text-xs text-outline font-medium">Primary Contact</p>
+<p class="text-sm font-semibold text-on-surface">Rebecca Haile</p>
+</div>
+<button class="ml-auto w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Org Card 6 -->
+<div class="group bg-surface-container-lowest p-6 rounded-xl transition-all duration-300 hover:shadow-[0_32px_64px_-12px_rgba(18,28,44,0.08)] relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="minimalist open book logo in soft blue tones symbolizing education and literacy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVDSjxNFMx4sOFm6m_AfHmCC47unQ2AF94O_2rYyxZFqVhGqRCDYDLOWJ2UkVDGwKWum4Gt_2GrMFJDJ_q5UuQrX1MFqIQeDiefzRujnFwNnZgk7YfSi7gFv5ZUQ49h0i9Phxuc4EcI29LVnlbF-wRgUa3ijS_B3bJcnFIs-0e_f0QNtu7onr3ebvAi72mAn0dthU_ARRq2pPPykB0h8OgcmSM2Q2omA1u6AGo51X51kBdcsxzVxdJK_GHFH4SMqQ9pvkJJsisVYk"/>
+</div>
+<div class="bg-surface-container-low px-2 py-1 rounded-lg flex items-center gap-2">
+<img class="w-5 h-3 object-cover rounded-sm" data-alt="flag of Uganda with its black, yellow, and red stripes and central crested crane bird" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfq4yhAS_mbz49xQ2kBLhHttOmAN8NYxrH5Rm6eU8kmiXuKjirPg3sZ5OGDNMwJm9kbaWIGVMJgA6z4XF1X7iUrlHgfbJvMY8eTDS8U8_pSwd6OlzSKqIQNZBkeNXMJvA4fKXOIjMvGivAfGmIqk3vFnSEJOd6kyi-NB7bN5F19lQY5w8-PjGu0S3EvletT8fnNx83MECadUF9IYV4bnG4gsYlgNZEGN90qIOp4wzEGsuTKzdCX6MnyfAGJYhQ2RXR_VzU4HcFczY"/>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Uganda</span>
+</div>
+</div>
+<h3 class="text-xl font-bold text-on-surface font-headline mb-2 leading-tight">The Joshua Foundation</h3>
+<p class="text-on-surface-variant text-sm mb-6 line-clamp-2 leading-relaxed">Empowering Ugandan youth through quality education, character development, and vocational training for a sustainable future.</p>
+<div class="flex items-center gap-3 pt-6 border-t border-outline-variant/10">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">person</span>
+</div>
+<div>
+<p class="text-xs text-outline font-medium">Primary Contact</p>
+<p class="text-sm font-semibold text-on-surface">Robert Ssempija</p>
+</div>
+<button class="ml-auto w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pagination or "Load More" (Asymmetric Style) -->
+<div class="mt-20 flex justify-center">
+<button class="px-8 py-3 rounded-md bg-gradient-to-r from-primary to-primary-container text-white font-bold text-sm tracking-wide shadow-lg hover:shadow-primary/20 transition-all active:scale-95">
+                    View More Members
+                </button>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (Only on main dashboard/home level screens as per instructions) -->
+<!-- Suppressed here as this is a task-focused directory page -->
+</body></html>

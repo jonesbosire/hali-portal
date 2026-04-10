@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HALI Access - Partner Portal Login</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#ffffff",
+              "on-primary-container": "#dff9ff",
+              "on-primary-fixed-variant": "#004e5a",
+              "secondary-fixed-dim": "#ffb955",
+              "error": "#ba1a1a",
+              "tertiary": "#745000",
+              "outline-variant": "#bec8cb",
+              "secondary": "#F5A623",
+              "surface-container-highest": "#d9e3f9",
+              "on-tertiary-fixed-variant": "#5f4100",
+              "inverse-surface": "#273141",
+              "surface": "#f9f9ff",
+              "surface-container": "#e7eeff",
+              "surface-tint": "#006877",
+              "surface-container-high": "#dee8ff",
+              "secondary-fixed": "#ffddb4",
+              "error-container": "#ffdad6",
+              "on-tertiary-container": "#fff2e2",
+              "background": "#f9f9ff",
+              "inverse-primary": "#81d3e4",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#a3eeff",
+              "tertiary-container": "#93670a",
+              "on-secondary": "#ffffff",
+              "primary": "#00606e",
+              "on-secondary-container": "#291800",
+              "secondary-container": "#F5A623",
+              "on-primary": "#ffffff",
+              "tertiary-fixed": "#ffdeac",
+              "on-surface-variant": "#3e484b",
+              "on-primary-fixed": "#001f25",
+              "outline": "#6f797b",
+              "on-tertiary-fixed": "#281900",
+              "surface-variant": "#d9e3f9",
+              "primary-container": "#1a7a8a",
+              "surface-container-low": "#f0f3ff",
+              "on-secondary-fixed": "#291800",
+              "on-background": "#121c2c",
+              "surface-bright": "#f9f9ff",
+              "surface-dim": "#d0daf0",
+              "tertiary-fixed-dim": "#f4bd5f",
+              "inverse-on-surface": "#ebf1ff",
+              "on-surface": "#121c2c",
+              "on-tertiary": "#ffffff",
+              "on-error-container": "#93000a",
+              "primary-fixed-dim": "#81d3e4",
+              "on-secondary-fixed-variant": "#633f00"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.5rem", "xl": "1rem", "full": "9999px"},
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'gradient-shift': 'gradient-shift 15s ease infinite',
+              'fade-up': 'fade-up 0.8s ease-out forwards',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              'gradient-shift': {
+                '0%, 100%': { 'background-position': '0% 50%' },
+                '50%': { 'background-position': '100% 50%' },
+              },
+              'fade-up': {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .bg-gradient-animate {
+        background: linear-gradient(-45deg, #00606e, #1a7a8a, #004e5a, #006877);
+        background-size: 400% 400%;
+        animation: gradient-shift 15s ease infinite;
+      }
+      .animate-delay-100 { animation-delay: 100ms; }
+      .animate-delay-200 { animation-delay: 200ms; }
+      .animate-delay-300 { animation-delay: 300ms; }
+      .animate-delay-400 { animation-delay: 400ms; }
+      
+      /* Particles effect simplified */
+      .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<main class="min-h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- Left Panel: Brand & Vision (Hidden on Mobile) -->
+<section class="hidden md:flex relative w-full md:w-[42%] bg-gradient-animate flex-col justify-between p-8 md:p-16 overflow-hidden">
+<!-- Floating Particles -->
+<div class="particle w-4 h-4 top-1/4 left-1/4 animate-float" style="animation-duration: 8s;"></div>
+<div class="particle w-8 h-8 bottom-1/3 right-1/4 animate-float" style="animation-duration: 12s; animation-delay: 2s;"></div>
+<div class="particle w-2 h-2 top-1/2 left-1/2 animate-float" style="animation-duration: 10s; animation-delay: 1s;"></div>
+<!-- Decorative Background Element -->
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -right-24 w-64 h-64 bg-secondary-container/10 rounded-full blur-2xl"></div>
+<!-- Header / Logo Area -->
+<div class="relative z-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">hub</span>
+</div>
+<h1 class="font-headline text-2xl font-bold tracking-tight text-white">HALI Access</h1>
+</div>
+</div>
+<!-- Content Area -->
+<div class="relative z-10 max-w-md animate-float">
+<div class="mb-12">
+<img alt="Students" class="w-full h-64 object-cover rounded-full shadow-2xl border-4 border-white/20 mb-10 transform hover:scale-105 transition-transform duration-500" data-alt="Group of diverse, ambitious African students smiling and studying together in a modern bright university library setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASumLMpiyCpfMYlk0y6JzaBxgmZJh3wqPclQyf-CmKgrzzZOKiy-0OJKoy3crK9EM9GIUjA0-KcniYg7S1ofY1Yf518jH5C4lHmDkdJRT8IjVhvcTsgfErSb7ZV8ssLglgQEBjPwDPMb8xdF7nJRB69m4uEC5Ljw5dB_MHcoGHVLiGLcsDLejbkJS7LBSoqGGKMCySldQZsJX-ktB6_wIGxoXOTg-glouvJaam3cQmUthQk1aAPpONktsEq30WvypZua89kt87VAU"/>
+</div>
+<h2 class="font-headline text-4xl md:text-5xl font-bold text-white leading-tight mb-6 -rotate-1 origin-left">
+                Championing <span class="text-secondary-fixed-dim">HALI</span> students from Africa to university and beyond
+            </h2>
+<!-- Animated Carousel Indicators -->
+<div class="flex gap-2 items-center">
+<div class="h-2 w-8 bg-secondary rounded-full shadow-lg shadow-secondary/20"></div>
+<div class="h-2 w-2 bg-white/30 rounded-full"></div>
+<div class="h-2 w-2 bg-white/30 rounded-full"></div>
+</div>
+</div>
+<!-- Footer / Support -->
+<div class="relative z-10">
+<p class="text-white/60 text-sm font-medium tracking-wide">
+                © 2024 HALI ACCESS PARTNER NETWORK
+            </p>
+</div>
+</section>
+<!-- Right Panel: Login Form (Full width on Mobile) -->
+<section class="w-full md:w-[58%] bg-surface-container-low md:bg-surface-container-lowest flex items-center justify-center p-6 md:p-24 min-h-screen">
+<div class="w-full max-w-[440px] bg-white md:bg-transparent p-8 md:p-0 rounded-3xl shadow-xl md:shadow-none animate-fade-up">
+<!-- Branding Context (Mobile Only) -->
+<div class="md:hidden flex items-center justify-center gap-2 mb-10">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-white text-xl" style="font-variation-settings: 'FILL' 1;">hub</span>
+</div>
+<span class="font-headline font-bold text-2xl text-primary">HALI Access</span>
+</div>
+<div class="mb-10 text-center md:text-left">
+<h3 class="font-headline text-3xl font-bold text-on-surface mb-2 animate-fade-up animate-delay-100">Welcome Back</h3>
+<p class="text-on-surface-variant font-medium animate-fade-up animate-delay-100 opacity-0" style="animation-fill-mode: forwards;">Access the Partner Portal to manage students and insights.</p>
+</div>
+<form class="space-y-6" onsubmit="return false;">
+<!-- Email Field -->
+<div class="space-y-2 animate-fade-up animate-delay-200 opacity-0" style="animation-fill-mode: forwards;">
+<label class="block text-sm font-bold text-on-surface-variant ml-1" for="email">Work Email</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline group-focus-within:text-primary transition-colors">mail</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-4 bg-surface-container-high border-2 border-transparent focus:border-primary/20 rounded-xl text-on-surface placeholder:text-outline focus:ring-4 focus:ring-primary/10 transition-all font-medium" id="email" name="email" placeholder="name@organization.org" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2 animate-fade-up animate-delay-300 opacity-0" style="animation-fill-mode: forwards;">
+<div class="flex justify-between items-center px-1">
+<label class="block text-sm font-bold text-on-surface-variant" for="password">Password</label>
+<a class="text-sm font-bold text-primary hover:text-primary-container transition-colors" href="#">Forgot Password?</a>
+</div>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline group-focus-within:text-primary transition-colors">lock</span>
+</div>
+<input class="block w-full pl-12 pr-12 py-4 bg-surface-container-high border-2 border-transparent focus:border-primary/20 rounded-xl text-on-surface placeholder:text-outline focus:ring-4 focus:ring-primary/10 transition-all font-medium" id="password" name="password" placeholder="••••••••••••" type="password"/>
+<div class="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer">
+<span class="material-symbols-outlined text-outline hover:text-on-surface transition-colors">visibility</span>
+</div>
+</div>
+</div>
+<!-- Remember Me -->
+<div class="flex items-center px-1 animate-fade-up animate-delay-400 opacity-0" style="animation-fill-mode: forwards;">
+<input class="h-5 w-5 rounded-lg border-outline-variant text-primary focus:ring-primary bg-surface-container-lowest" id="remember-me" name="remember-me" type="checkbox"/>
+<label class="ml-3 block text-sm font-medium text-on-surface-variant" for="remember-me">
+                        Keep me logged in for 30 days
+                    </label>
+</div>
+<!-- Sign In Button -->
+<button class="w-full flex justify-center items-center py-4 px-6 rounded-xl text-on-secondary-container font-headline font-bold text-lg bg-secondary-container hover:bg-[#E09412] hover:shadow-xl hover:shadow-secondary/30 active:scale-[0.98] transition-all animate-fade-up animate-delay-400 opacity-0" style="animation-fill-mode: forwards;" type="submit">
+                    Sign In
+                </button>
+</form>
+<!-- Alternative Actions -->
+<div class="mt-10 pt-8 border-t border-outline-variant/20 animate-fade-up animate-delay-400 opacity-0" style="animation-fill-mode: forwards;">
+<p class="text-center text-on-surface-variant text-sm font-medium">
+                    New to the network? 
+                    <a class="text-primary font-bold hover:underline ml-1" href="#">Contact Administration</a>
+</p>
+</div>
+<!-- Accessibility / Language -->
+<div class="mt-12 flex justify-center gap-6 animate-fade-up animate-delay-400 opacity-0" style="animation-fill-mode: forwards;">
+<button class="flex items-center gap-2 text-xs font-bold text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm">language</span>
+                    ENGLISH (US)
+                </button>
+<button class="flex items-center gap-2 text-xs font-bold text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm">help</span>
+                    SUPPORT
+                </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Background Graphic (Editorial Touch) -->
+<div class="fixed top-1/2 left-[42%] -translate-x-1/2 -translate-y-1/2 pointer-events-none hidden md:block z-20">
+<div class="w-16 h-16 bg-white rounded-2xl shadow-2xl flex items-center justify-center border-4 border-surface animate-float" style="animation-duration: 4s;">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+</div>
+</body></html>

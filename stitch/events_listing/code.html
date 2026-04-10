@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Events - HALI Access Partner Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#ffffff",
+              "on-primary-container": "#dff9ff",
+              "on-primary-fixed-variant": "#004e5a",
+              "secondary-fixed-dim": "#ffb955",
+              "error": "#ba1a1a",
+              "tertiary": "#745000",
+              "outline-variant": "#bec8cb",
+              "secondary": "#835500",
+              "surface-container-highest": "#d9e3f9",
+              "on-tertiary-fixed-variant": "#5f4100",
+              "inverse-surface": "#273141",
+              "surface": "#f9f9ff",
+              "surface-container": "#e7eeff",
+              "surface-tint": "#006877",
+              "surface-container-high": "#dee8ff",
+              "secondary-fixed": "#ffddb4",
+              "error-container": "#ffdad6",
+              "on-tertiary-container": "#fff2e2",
+              "background": "#f9f9ff",
+              "inverse-primary": "#81d3e4",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#a3eeff",
+              "tertiary-container": "#93670a",
+              "on-secondary": "#ffffff",
+              "primary": "#00606e",
+              "on-secondary-container": "#6b4500",
+              "secondary-container": "#feae2c",
+              "on-primary": "#ffffff",
+              "tertiary-fixed": "#ffdeac",
+              "on-surface-variant": "#3e484b",
+              "on-primary-fixed": "#001f25",
+              "outline": "#6f797b",
+              "on-tertiary-fixed": "#281900",
+              "surface-variant": "#d9e3f9",
+              "primary-container": "#1a7a8a",
+              "surface-container-low": "#f0f3ff",
+              "on-secondary-fixed": "#291800",
+              "on-background": "#121c2c",
+              "surface-bright": "#f9f9ff",
+              "surface-dim": "#d0daf0",
+              "tertiary-fixed-dim": "#f4bd5f",
+              "inverse-on-surface": "#ebf1ff",
+              "on-surface": "#121c2c",
+              "on-tertiary": "#ffffff",
+              "on-error-container": "#93000a",
+              "primary-fixed-dim": "#81d3e4",
+              "on-secondary-fixed-variant": "#633f00"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
+<aside class="fixed left-0 top-0 h-full w-[220px] z-40 bg-[#00606e] dark:bg-slate-950 shadow-xl dark:shadow-none flex flex-col py-6 gap-4">
+<div class="px-6 mb-4">
+<h1 class="text-xl font-bold text-white dark:text-teal-50 font-headline tracking-tight">HALI Access</h1>
+<p class="text-xs text-teal-50/60 font-medium">Partner Portal</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 hover:bg-[#1a7a8a]/50 transition-colors duration-200 scale-95 active:scale-90 transition-transform font-['Space_Grotesk'] font-medium text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 hover:bg-[#1a7a8a]/50 transition-colors duration-200 scale-95 active:scale-90 transition-transform font-['Space_Grotesk'] font-medium text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined">handshake</span>
+                Partners
+            </a>
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 hover:bg-[#1a7a8a]/50 transition-colors duration-200 scale-95 active:scale-90 transition-transform font-['Space_Grotesk'] font-medium text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined">insights</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-3 bg-[#1a7a8a] text-white rounded-full px-4 py-2 mx-2 scale-95 active:scale-90 transition-transform font-['Space_Grotesk'] font-medium text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined">event</span>
+                Events
+            </a>
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 hover:bg-[#1a7a8a]/50 transition-colors duration-200 scale-95 active:scale-90 transition-transform font-['Space_Grotesk'] font-medium text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto px-6">
+<div class="p-4 rounded-xl bg-white/5 border border-white/10">
+<p class="text-[10px] uppercase tracking-widest text-teal-50/40 mb-2">Support</p>
+<button class="text-xs text-white font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">help</span>
+                    Help Center
+                </button>
+</div>
+</div>
+</aside>
+<header class="fixed top-0 right-0 w-[calc(100%-220px)] z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl flex justify-between items-center h-16 px-8 ml-[220px]">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-outline" placeholder="Search events, webinars, or speakers..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<button class="p-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline/20"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-on-surface">Elena Rodriguez</p>
+<p class="text-[10px] text-outline uppercase tracking-tighter">Global Coordinator</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-primary/10" data-alt="professional headshot of a smiling woman with dark hair in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB69YXh0nF6nImQ4bjWyYDZ-9wyMuG3_ZUes_Q-vYXdXcLJ1eExhW_E4kd9DdPgF6eX5oGWBPGxeZwEmPtxxcFuhTVz3JGELnz6QzbQKKFA6bPKB5KePXQxI1dN3MniyI1eqAZfrf8st5O7nVYtLZ713ka1X9WxGwX3S8reUo31MAPfbXIf8Pu6NDTi_nHSIiJRBjgldcRzQGP3NMDkjJ41hJghaNbVlLl6YPk6eYVGMBbF1a3Rae47iHWn0zF3Z0ESZK3bTrYfroI"/>
+</div>
+</div>
+</header>
+<main class="ml-[220px] pt-16 min-h-screen">
+<div class="p-8 space-y-8">
+<section class="relative rounded-[2rem] overflow-hidden min-h-[400px] flex items-end group shadow-2xl shadow-primary/10">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="large professional conference hall with vibrant stage lighting and a diverse audience of leaders networking" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyS9xbTWuEAwgAd2TzCaurdoaoj2qwqqzDoIe-jO1ox67REB4ullshxrwi5UyH1FOMTXyNnv1EYHQFwrDE8DpCYGdIwfCxEikLlGIi09JHxjAO8RHw93Uo5P228h3U2f4Jp58eMlb0kHZaoglk2vuvKAmYbnM4lIi47nwnHOENs9aRuxjj7KpPU53etbDH68sJdT5PJqHk1xMoYVhsg4iTOHY2TZjBbJoqgUWPpPPL4sUhPom9I4MvYWnzDwWFzHnkK03SP-j7dLY"/>
+<div class="relative z-20 p-12 w-full max-w-4xl space-y-4">
+<span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary-container font-headline font-bold text-xs uppercase tracking-widest shadow-lg">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                        Featured Indaba 2024
+                    </span>
+<h2 class="text-5xl font-headline font-bold text-white leading-tight">Empowering Pan-African Innovation: The Annual Leadership Indaba</h2>
+<p class="text-lg text-white/80 font-body max-w-2xl leading-relaxed">Join 500+ global partners and regional leaders in Nairobi for a three-day immersive experience focused on sustainable growth and educational sovereignty.</p>
+<div class="flex items-center gap-6 pt-4">
+<button class="px-8 py-4 bg-gradient-to-r from-primary to-primary-container text-white rounded-xl font-bold text-base shadow-xl hover:shadow-primary/40 transition-all flex items-center gap-2">
+                            Register Now
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<div class="flex items-center gap-4 text-white">
+<div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined text-secondary-container">calendar_today</span>
+<span class="text-sm font-semibold">Oct 12-15, 2024</span>
+</div>
+<div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined text-secondary-container">location_on</span>
+<span class="text-sm font-semibold">Nairobi, Kenya</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="flex flex-col lg:flex-row gap-8">
+<aside class="w-full lg:w-64 space-y-6 flex-shrink-0">
+<div class="bg-surface-container-lowest p-6 rounded-2xl space-y-8">
+<div>
+<h3 class="font-headline font-bold text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">filter_list</span>
+                                Filter Events
+                            </h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary/20 w-5 h-5 transition-all" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">All Events</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary/20 w-5 h-5 transition-all" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Webinars</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary/20 w-5 h-5 transition-all" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Indabas</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary/20 w-5 h-5 transition-all" type="checkbox"/>
+<span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Workshops</span>
+</label>
+</div>
+</div>
+<div>
+<h4 class="text-[10px] uppercase tracking-widest text-outline font-bold mb-4">Location</h4>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary/20 w-5 h-5" name="loc" type="radio"/>
+<span class="text-sm font-medium text-on-surface-variant">Anywhere</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="text-primary focus:ring-primary/20 w-5 h-5" name="loc" type="radio"/>
+<span class="text-sm font-medium text-on-surface-variant">Virtual Only</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="text-primary focus:ring-primary/20 w-5 h-5" name="loc" type="radio"/>
+<span class="text-sm font-medium text-on-surface-variant">In-Person</span>
+</label>
+</div>
+</div>
+<div>
+<h4 class="text-[10px] uppercase tracking-widest text-outline font-bold mb-4">Timeframe</h4>
+<select class="w-full bg-surface-container-low border-none rounded-xl text-sm font-medium focus:ring-primary/20 px-4 py-3">
+<option>This Month</option>
+<option>Next 3 Months</option>
+<option>Archive 2023</option>
+</select>
+</div>
+<button class="w-full py-3 bg-surface-container-high text-primary font-bold rounded-xl text-sm hover:bg-primary hover:text-white transition-all">
+                            Reset Filters
+                        </button>
+</div>
+<div class="bg-primary p-6 rounded-2xl text-white space-y-4">
+<span class="material-symbols-outlined text-4xl opacity-50">auto_awesome</span>
+<p class="font-headline font-bold text-lg leading-tight">Want personalized event alerts?</p>
+<p class="text-xs text-teal-50/70 leading-relaxed">Get notified when new workshops match your focus areas.</p>
+<button class="w-full py-2 bg-white/20 hover:bg-white/30 rounded-lg text-xs font-bold transition-all">Setup Alerts</button>
+</div>
+</aside>
+<div class="flex-1 space-y-6">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<h3 class="text-xl font-headline font-bold text-on-surface">Upcoming Journeys</h3>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary text-[10px] font-bold">12 EVENTS FOUND</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg bg-surface-container-high text-primary"><span class="material-symbols-outlined">grid_view</span></button>
+<button class="p-2 rounded-lg text-outline"><span class="material-symbols-outlined">list</span></button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<div class="group bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 flex flex-col">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="vibrant webinar recording setup with professional camera and person speaking with high-tech backgrounds" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBygLa9WA5yerTD4oV3lf6qg3slXQamdxUcthrD-2RbAppA2kPOIBcdzw80VQjtg_8XWu2IqB8Bt3FlGWvPLrPUHNiHP95ZtLwN0eKk3AOTHSFdVxcdpywzv9klE3BSZ-559kVUGGASxA9hyVxkpfjAfzL_7aIIPVgXbH052h0APi8OPxg-PUuW5c2rciJifiYoHnUzIbNYmGgL_qutphaxaOsWQkD7qikF32SIjDhmnDvtBBDfNY55i6mhmZBpOz4yd-nNuizRmtw"/>
+<div class="absolute top-4 left-4 flex flex-col gap-2">
+<span class="px-3 py-1 bg-primary-container text-on-primary-container text-[10px] font-bold uppercase rounded-full tracking-wider">Webinar</span>
+</div>
+<div class="absolute bottom-4 right-4 px-3 py-2 bg-white/90 backdrop-blur rounded-xl text-center shadow-lg">
+<p class="text-[10px] font-bold text-primary uppercase leading-none">Aug</p>
+<p class="text-lg font-headline font-extrabold text-on-surface leading-tight">24</p>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-2 text-outline mb-3">
+<span class="material-symbols-outlined text-sm">laptop_mac</span>
+<span class="text-xs font-semibold">Virtual Global Room</span>
+</div>
+<h4 class="text-lg font-headline font-bold text-on-surface mb-3 group-hover:text-primary transition-colors leading-snug">Sustainable Funding Strategies for African NGO Leaders</h4>
+<p class="text-sm text-on-surface-variant line-clamp-2 mb-6 leading-relaxed">Explore new avenues for non-dilutive capital and philanthropic partnerships across the continent.</p>
+<div class="mt-auto pt-4 flex items-center justify-between border-t border-outline-variant/10">
+<span class="text-xs font-bold text-on-surface">FREE</span>
+<button class="px-6 py-2.5 bg-[#F5A623] hover:bg-[#d98c00] text-white font-bold text-sm rounded-xl transition-all shadow-md active:scale-95">Register</button>
+</div>
+</div>
+</div>
+<div class="group bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 flex flex-col">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="a group of focused professionals sitting in a circle during an outdoor workshop under a large tree" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALa5Bon9UfLZntTXo_ylep88y-l16DyrjcwR6hkOnjCkJ0-uv0nHehF1Z1cfPu8y2Cue20Le21YOjCChnHNfAhGlsi3a3IBJuCNxeVFwHIaRRAuHqb5T4m2AsMoIC39R8KYpgN6oTYdjSuaRtwDYYPPjYjbyKOOdr1tgu_yxxz7W1X8gWmf-4SEd-9X322r3_tUsnQwZCnoa4-1Y_g-ulsXcM4YmzE3xv5oVDlyZ2s3CUOkYJJ9Hcjn-BrnJ18b2h0J7bfDMqizsY"/>
+<div class="absolute top-4 left-4 flex flex-col gap-2">
+<span class="px-3 py-1 bg-secondary text-white text-[10px] font-bold uppercase rounded-full tracking-wider">Workshop</span>
+</div>
+<div class="absolute bottom-4 right-4 px-3 py-2 bg-white/90 backdrop-blur rounded-xl text-center shadow-lg">
+<p class="text-[10px] font-bold text-primary uppercase leading-none">Sep</p>
+<p class="text-lg font-headline font-extrabold text-on-surface leading-tight">08</p>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-2 text-outline mb-3">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="text-xs font-semibold">Cape Town, SA</span>
+</div>
+<h4 class="text-lg font-headline font-bold text-on-surface mb-3 group-hover:text-primary transition-colors leading-snug">Design Thinking: Community-Led Infrastructure</h4>
+<p class="text-sm text-on-surface-variant line-clamp-2 mb-6 leading-relaxed">A hands-on intensive focused on co-creating local solutions with stakeholders.</p>
+<div class="mt-auto pt-4 flex items-center justify-between border-t border-outline-variant/10">
+<span class="text-xs font-bold text-on-surface">$120.00</span>
+<button class="px-6 py-2.5 bg-[#F5A623] hover:bg-[#d98c00] text-white font-bold text-sm rounded-xl transition-all shadow-md active:scale-95">Register</button>
+</div>
+</div>
+</div>
+<div class="group bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 flex flex-col">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="lively indoor networking event with people holding beverages and engaged in deep conversation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsKM6CYff37JtQEQljSEiCH0bE-UaAban3tYLTCxFsk32UlRg_7YjZGPlQQfWY6P83Nc8amchv_iRp7ptgbNsGL6ojwbIE69yZDshKtEYZaryc2kFQ85B6bywm5S6hDgYHuzYQf4CGPERC4knjfauzT_Y45nWk5o-ROKt0-DT2HJ8cgVdDLmxvjap40KExeODiwJLr4hIwrDVfb7pSRX5EO-wmURWyMaj84kZ4moEnvq96Qk7IwoCTODTfpmPw2pASJ940AFc20FI"/>
+<div class="absolute top-4 left-4 flex flex-col gap-2">
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container text-[10px] font-bold uppercase rounded-full tracking-wider">Indaba</span>
+</div>
+<div class="absolute bottom-4 right-4 px-3 py-2 bg-white/90 backdrop-blur rounded-xl text-center shadow-lg">
+<p class="text-[10px] font-bold text-primary uppercase leading-none">Nov</p>
+<p class="text-lg font-headline font-extrabold text-on-surface leading-tight">15</p>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-2 text-outline mb-3">
+<span class="material-symbols-outlined text-sm">apartment</span>
+<span class="text-xs font-semibold">Lagos, Nigeria</span>
+</div>
+<h4 class="text-lg font-headline font-bold text-on-surface mb-3 group-hover:text-primary transition-colors leading-snug">The Nigeria Tech Partner Summit: Q4 Connect</h4>
+<p class="text-sm text-on-surface-variant line-clamp-2 mb-6 leading-relaxed">Bringing together the largest network of Nigerian tech educators and capital providers.</p>
+<div class="mt-auto pt-4 flex items-center justify-between border-t border-outline-variant/10">
+<span class="text-xs font-bold text-on-surface">INVITE ONLY</span>
+<button class="px-6 py-2.5 bg-[#F5A623] hover:bg-[#d98c00] text-white font-bold text-sm rounded-xl transition-all shadow-md active:scale-95">Register</button>
+</div>
+</div>
+</div>
+<div class="group bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-primary/5 flex flex-col">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="close up of a high resolution laptop screen displaying a complex data visualization board" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnyY8qsDW2gNKthBYZ8kqU9Nkj_BZuoUeXC4fs7OaY8okF_X-mhohypv_eMOLk4RNbUEbqKZTrX5TAnAdEQiJgn133EljWU5yv6ptrID2sXccHrLwwnZdVfFKfXeQHd7sR0_9DHx3TbyKz2q12yglobKneqaNqeoOFquLITm-WKetPM8OE8Rxcd2s8smZvDXgg2EGKPyGgIvRoM0fWRjjRXtH5OdMr41n4FcA1wqJaq0oDn42jRfub43xHEgB9l4f3XEoxwvi4p70"/>
+<div class="absolute top-4 left-4 flex flex-col gap-2">
+<span class="px-3 py-1 bg-primary-container text-on-primary-container text-[10px] font-bold uppercase rounded-full tracking-wider">Webinar</span>
+</div>
+<div class="absolute bottom-4 right-4 px-3 py-2 bg-white/90 backdrop-blur rounded-xl text-center shadow-lg">
+<p class="text-[10px] font-bold text-primary uppercase leading-none">Dec</p>
+<p class="text-lg font-headline font-extrabold text-on-surface leading-tight">02</p>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex items-center gap-2 text-outline mb-3">
+<span class="material-symbols-outlined text-sm">laptop_mac</span>
+<span class="text-xs font-semibold">Virtual</span>
+</div>
+<h4 class="text-lg font-headline font-bold text-on-surface mb-3 group-hover:text-primary transition-colors leading-snug">Scaling EdTech: Lessons from the Last Decade</h4>
+<p class="text-sm text-on-surface-variant line-clamp-2 mb-6 leading-relaxed">A retrospective on successful digital education deployments across 12 countries.</p>
+<div class="mt-auto pt-4 flex items-center justify-between border-t border-outline-variant/10">
+<span class="text-xs font-bold text-on-surface">FREE</span>
+<button class="px-6 py-2.5 bg-[#F5A623] hover:bg-[#d98c00] text-white font-bold text-sm rounded-xl transition-all shadow-md active:scale-95">Register</button>
+</div>
+</div>
+</div>
+<div class="md:col-span-2 xl:col-span-2 bg-primary-container text-on-primary-container rounded-[2rem] p-8 flex items-center gap-8 relative overflow-hidden">
+<div class="absolute right-0 top-0 w-1/3 h-full opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[300px] -rotate-12 translate-x-12">calendar_month</span>
+</div>
+<div class="relative z-10 flex-1 space-y-4">
+<h3 class="text-3xl font-headline font-bold">Host Your Own Partner Event?</h3>
+<p class="text-white/80 max-w-lg">Are you planning a workshop or satellite Indaba? Partner Portal members can list their events here for increased visibility.</p>
+<button class="px-8 py-3 bg-white text-primary font-bold rounded-xl hover:bg-teal-50 transition-all">Submit an Event</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-8 right-8 z-50">
+<button class="flex items-center gap-3 bg-primary text-white p-4 pr-6 rounded-full shadow-2xl hover:scale-105 transition-transform active:scale-95">
+<span class="w-12 h-12 flex items-center justify-center bg-white/20 rounded-full">
+<span class="material-symbols-outlined">add</span>
+</span>
+<span class="font-headline font-bold">Create Event</span>
+</button>
+</div>
+</body></html>

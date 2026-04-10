@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Secretariat Updates &amp; Stories | HALI Access</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#ffffff",
+              "on-primary-container": "#dff9ff",
+              "on-primary-fixed-variant": "#004e5a",
+              "secondary-fixed-dim": "#ffb955",
+              "error": "#ba1a1a",
+              "tertiary": "#745000",
+              "outline-variant": "#bec8cb",
+              "secondary": "#835500",
+              "surface-container-highest": "#d9e3f9",
+              "on-tertiary-fixed-variant": "#5f4100",
+              "inverse-surface": "#273141",
+              "surface": "#f9f9ff",
+              "surface-container": "#e7eeff",
+              "surface-tint": "#006877",
+              "surface-container-high": "#dee8ff",
+              "secondary-fixed": "#ffddb4",
+              "error-container": "#ffdad6",
+              "on-tertiary-container": "#fff2e2",
+              "background": "#f9f9ff",
+              "inverse-primary": "#81d3e4",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#a3eeff",
+              "tertiary-container": "#93670a",
+              "on-secondary": "#ffffff",
+              "primary": "#00606e",
+              "on-secondary-container": "#6b4500",
+              "secondary-container": "#feae2c",
+              "on-primary": "#ffffff",
+              "tertiary-fixed": "#ffdeac",
+              "on-surface-variant": "#3e484b",
+              "on-primary-fixed": "#001f25",
+              "outline": "#6f797b",
+              "on-tertiary-fixed": "#281900",
+              "surface-variant": "#d9e3f9",
+              "primary-container": "#1a7a8a",
+              "surface-container-low": "#f0f3ff",
+              "on-secondary-fixed": "#291800",
+              "on-background": "#121c2c",
+              "surface-bright": "#f9f9ff",
+              "surface-dim": "#d0daf0",
+              "tertiary-fixed-dim": "#f4bd5f",
+              "inverse-on-surface": "#ebf1ff",
+              "on-surface": "#121c2c",
+              "on-tertiary": "#ffffff",
+              "on-error-container": "#93000a",
+              "primary-fixed-dim": "#81d3e4",
+              "on-secondary-fixed-variant": "#633f00"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[220px] z-40 bg-[#00606e] dark:bg-slate-950 shadow-xl dark:shadow-none flex flex-col py-6 gap-4">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-bold text-white dark:text-teal-50">HALI Access</h1>
+<p class="text-xs text-teal-50/60 uppercase tracking-widest mt-1">Partner Portal</p>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 hover:bg-[#1a7a8a]/50 transition-colors duration-200 font-['Space_Grotesk'] font-medium text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 hover:bg-[#1a7a8a]/50 transition-colors duration-200 font-['Space_Grotesk'] font-medium text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span> Partners
+            </a>
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 hover:bg-[#1a7a8a]/50 transition-colors duration-200 font-['Space_Grotesk'] font-medium text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span> Analytics
+            </a>
+<a class="flex items-center gap-3 bg-[#1a7a8a] text-white rounded-full px-4 py-2 mx-2 font-['Space_Grotesk'] font-medium text-sm tracking-tight scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="event">event</span> Events
+            </a>
+<a class="flex items-center gap-3 text-teal-50/70 hover:text-white px-4 py-2 mx-2 hover:bg-[#1a7a8a]/50 transition-colors duration-200 font-['Space_Grotesk'] font-medium text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span> Settings
+            </a>
+</nav>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-220px)] z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none flex justify-between items-center h-16 px-8 ml-[220px]">
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-outline text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full font-body" placeholder="Search stories and updates..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="flex items-center text-slate-500 dark:text-slate-400 font-semibold text-sm hover:text-[#1a7a8a] transition-all">
+                Support
+            </button>
+<div class="relative">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer" data-icon="notifications">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-secondary rounded-full"></span>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="professional headshot of a confident executive in a modern office environment with warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEZFvDiquljeImL3qLi9Rql7vqzvxtbEjxEuq9njxGCYnZ4fJqTEMFjK-PEz_6D4vYFYV7rjI2PrnoUuWlMbUIWr1T5sSs49t-zd7NMDPRKCja5tbXz7nXKaanAbqGG-74O0SUJhCLvrgclwi2vGf8YT4CStGBYmZgQ7tMzoA8kC4Y3i26KN3wpCX6qhJoXt5stSands6h1NfE0aGSm2S2rcSMcwk9Z6Qmty2tt5l3A5hxeU5pzBlWegpFwSqP3NzA5jezidSQkQk"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-[220px] pt-24 pb-12 px-12 min-h-screen">
+<div class="max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="text-display-lg font-headline text-primary font-bold tracking-tight text-5xl mb-2">Secretariat Insights</h2>
+<p class="text-on-surface-variant text-lg font-body max-w-2xl">The latest strategic updates, success stories, and thought leadership from the HALI Access headquarters.</p>
+</div>
+<div class="flex gap-4">
+<span class="px-4 py-1.5 rounded-full bg-surface-container-high text-on-surface text-xs font-bold uppercase tracking-widest flex items-center gap-2 cursor-pointer hover:bg-primary-container hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span> Filter
+                    </span>
+</div>
+</div>
+<!-- Featured Post -->
+<section class="mb-16">
+<div class="relative group overflow-hidden rounded-full bg-surface-container-low flex flex-col lg:flex-row items-stretch min-h-[450px]">
+<div class="lg:w-3/5 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="a diverse group of professionals collaborating around a large table in a bright, modern architectural space with glass walls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcn_ZyzH6gU6JlMINAe-S5e2AO14nVkAejtUsTmUrYgPH2RMe-_DwX4Df6FpwhTIuh9aaky4GNELUnQA7EumyDujxhhGe3EYoaidPhVRDSWA68m9R9-Zi6SdNpKoeFLTh5HYth4y0__M7H8LXXFQsF6k0OWFy9VmhPFfWT5cG_UIHyCo5yvj5d0nS_-8RNZxV2UhN_rp43aZ1NT-VPm_jTBZO2UaR0e0x66y5_YlFGhFGCw9ooz3KYx9Kcvb062wxKtEtJn7O45c8"/>
+</div>
+<div class="lg:w-2/5 p-12 flex flex-col justify-center">
+<span class="inline-block w-fit px-3 py-1 mb-6 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-widest">Update</span>
+<h3 class="text-headline-md font-headline text-3xl font-bold leading-tight mb-4">Expanding the Global Reach: The 2024 Partner Initiative</h3>
+<p class="text-on-surface-variant font-body mb-8 line-clamp-3">We are thrilled to announce the next phase of our cross-border connectivity program, designed to integrate over 50 new pan-African institutional partners into the HALI network by year-end.</p>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-xs text-outline font-medium">October 24, 2023</span>
+<a class="flex items-center gap-2 text-primary font-bold text-sm hover:underline" href="#">
+                                Read More <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Posts Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+<!-- Card 1 -->
+<div class="flex flex-col group">
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-surface-container-low shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="two professional women of color discussing data on a laptop in a high-tech conference room with vibrant office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCORmfjwkvOuA-9tbnELiQOVRSBPWkkFDYbzjLXIWN7VILyOictelCJBjUzWZukgInaLexDroHhAtgJwPFMEb90Nr_-qz64MntHe0xWx46NYqMz6M_AkQU8uxhkKOOx9IFBixzi6VkhAKs6p0In62VE9pWv6RGr6fku7MXhib5khCypXJ-f0ywMJbV78smno3YtuHCeZ_f39vJS43mJjLw6PZlFs7a5Nx1Edruh-ZHuNUjddwc41dduDY6hvXp9MdZInHI7gBa2JU"/>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-primary-container text-white text-[10px] font-bold uppercase tracking-widest">Story</span>
+</div>
+<h4 class="text-xl font-headline font-bold text-on-surface mb-3 leading-snug group-hover:text-primary transition-colors">Success Spotlight: Bridging the Digital Divide in Lagos</h4>
+<p class="text-on-surface-variant text-sm font-body mb-6 line-clamp-2">How local technical teams utilized the HALI API to streamline service delivery for over 10,000 community members.</p>
+<div class="mt-auto flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<span class="text-xs text-outline">Oct 20, 2023</span>
+<a class="text-primary text-xs font-bold uppercase tracking-wider hover:text-primary-container" href="#">Read Story</a>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex flex-col group">
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-surface-container-low shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="a business meeting presentation with a large digital screen showing analytics and charts in a dark, sophisticated boardroom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-1XX77e1fubEpDvaoQaAwPHJiO4mWJ6LuO_lKsVso1B23pNLP63bSRFIUm8pzt4GraYyiKPYxjkJcOGE9ZpX2qV02QfaEaUaQJ-ROJktWXE-ma9XZi6s03RPBcBhG5xBTGjGYJXbYqyZ4BezohyP7kYzQQXAycV2wyf0DBQsKfeBTstL2PT_Iady3ok-1WEJBHkI11-A2B3pZYiVsLRsT4aEsLt3039rRF9-WQrmzlvsC2lKSk6sFV80gPxI3MQZXhO_iBLPWho4"/>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-[10px] font-bold uppercase tracking-widest">Blog</span>
+</div>
+<h4 class="text-xl font-headline font-bold text-on-surface mb-3 leading-snug group-hover:text-primary transition-colors">The Future of Sovereign Data Management</h4>
+<p class="text-on-surface-variant text-sm font-body mb-6 line-clamp-2">Our technical lead explores the evolving landscape of data sovereignty and why it's critical for the next decade of growth.</p>
+<div class="mt-auto flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<span class="text-xs text-outline">Oct 18, 2023</span>
+<a class="text-primary text-xs font-bold uppercase tracking-wider hover:text-primary-container" href="#">Read Blog</a>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="flex flex-col group">
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-surface-container-low shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="an elegant networking event at dusk on a rooftop with warm ambient lighting and people in business attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVvPpYVj8VzJ4nBkDmpimKF60TjklR9g25BP9UiUz9dZR6pUUWTVoS1ccajFJ750gwuHW9VDfrrDZYuruIYxbmheKpxKnBcvUx6OhmtpYB-6Boe7K9_aYopif3QS8qerZe_XRC6RdPnrAC9gBNRFNxuPz9D5J0rmVEHlHNIl8IlyLM9yLXZp1DXcWCh1cYKTDV80Zdof9asYQfkJVcsAstePMmvUCW3TJmwziYoo4In6t4-sF2mshrlsod0gBPUonNmORaJ61f5tc"/>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-widest">Update</span>
+</div>
+<h4 class="text-xl font-headline font-bold text-on-surface mb-3 leading-snug group-hover:text-primary transition-colors">Q4 Partner Summit: Registration Now Open</h4>
+<p class="text-on-surface-variant text-sm font-body mb-6 line-clamp-2">Join us in Nairobi this December for our largest gathering of institutional partners yet. Early bird tickets are available.</p>
+<div class="mt-auto flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<span class="text-xs text-outline">Oct 15, 2023</span>
+<a class="text-primary text-xs font-bold uppercase tracking-wider hover:text-primary-container" href="#">View Event</a>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="flex flex-col group">
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-surface-container-low shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="close up of a person hand writing in a leather journal with an expensive fountain pen on a mahogany desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTxwvH3bjbbgbQ1YC8USjFxSvuCl7HCBsbpTyJba_YVLzbYA0XpvWTsfsTkUvuFDNu5imnsNymoXL-rmqnW0lq8tiGpixj9YnCO1W0wEtnbF486jaq8bTRo_DmiI_FbUJ1xIWljt29fOVCibTYyLu9zyOY8_J35JV6sew4zCdkGf8tsqHSx3pwYtON6tk6Wbho3wBfwNX8Irqh_kltTh0U8HXgroghrMUBurard1mRdA0-Fo5lIFMMPoJzeV3BDdGel4UTDCWBciE"/>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-primary-container text-white text-[10px] font-bold uppercase tracking-widest">Story</span>
+</div>
+<h4 class="text-xl font-headline font-bold text-on-surface mb-3 leading-snug group-hover:text-primary transition-colors">Impact Report: 5 Years of Resilience</h4>
+<p class="text-on-surface-variant text-sm font-body mb-6 line-clamp-2">A retrospective on the milestones achieved and the challenges overcome during our first five years of operation.</p>
+<div class="mt-auto flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<span class="text-xs text-outline">Oct 12, 2023</span>
+<a class="text-primary text-xs font-bold uppercase tracking-wider hover:text-primary-container" href="#">Read Story</a>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="flex flex-col group">
+<div class="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 bg-surface-container-low shadow-sm">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="high energy startup office with whiteboards filled with complex flowcharts and team members in casual business attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdhbmV76eUGgMWjgbls9V6Vc2n1bx606RsH9wO9bqSTQN-TbtFGNp8CbaW3Tyuv9AWXoN0OvOrobLZWLrXKUJVfzyTjc_Cg78baytrr_l1R6AKyKqKPupwEaxNYWia9Qsa1lUJFb8iuR9JKmNzvDZva12mjJL3epFAWyKAwtgGtOxM8Y44NKnw7v74r4H2Kg2DGDwZuHBkoXsRZc2fQNZv2wjNLSPWr1GNKon2D0ijIZ3w-j5GVm-cPzQzbKLZhjO4jiCs3j--hwg"/>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-[10px] font-bold uppercase tracking-widest">Blog</span>
+</div>
+<h4 class="text-xl font-headline font-bold text-on-surface mb-3 leading-snug group-hover:text-primary transition-colors">Agile Leadership in Complex Ecosystems</h4>
+<p class="text-on-surface-variant text-sm font-body mb-6 line-clamp-2">Navigating the intersection of multi-stakeholder interests without losing velocity or vision.</p>
+<div class="mt-auto flex items-center justify-between border-t border-outline-variant/20 pt-4">
+<span class="text-xs text-outline">Oct 08, 2023</span>
+<a class="text-primary text-xs font-bold uppercase tracking-wider hover:text-primary-container" href="#">Read Blog</a>
+</div>
+</div>
+<!-- CTA Card / Asymmetric Bento element -->
+<div class="flex flex-col rounded-xl overflow-hidden mb-6 bg-primary-container p-8 text-on-primary-container justify-center relative shadow-lg">
+<div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
+<div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full -ml-12 -mb-12"></div>
+<h4 class="text-2xl font-headline font-bold mb-4 relative z-10">Have a Story to Share?</h4>
+<p class="text-primary-fixed text-sm mb-8 relative z-10">We are always looking for impactful partner stories to feature in our monthly digest and platform updates.</p>
+<button class="w-fit bg-secondary-container text-on-secondary-container px-6 py-3 rounded-md font-bold text-sm flex items-center gap-2 hover:bg-secondary transition-all relative z-10">
+                        Submit a Story <span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+</button>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-20 flex justify-center items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white font-bold text-sm">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant hover:bg-surface-container transition-colors font-medium text-sm">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant hover:bg-surface-container transition-colors font-medium text-sm">3</button>
+<span class="mx-2 text-outline">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant hover:bg-surface-container transition-colors font-medium text-sm">8</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Footer-like Tonal Area -->
+<footer class="ml-[220px] bg-surface-container-low py-12 px-12 border-t border-outline-variant/10">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">H</div>
+<span class="font-headline font-bold text-lg text-primary tracking-tight">HALI Access</span>
+</div>
+<div class="flex gap-8 text-sm font-medium text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+<p class="text-xs text-outline">© 2023 HALI Access Secretariat. All rights reserved.</p>
+</div>
+</footer>
+</body></html>
