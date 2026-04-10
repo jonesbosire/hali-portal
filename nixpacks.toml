@@ -5,7 +5,7 @@ nixPkgs = ["php83", "php83Extensions.pdo", "php83Extensions.pdo_mysql",
            "php83Extensions.bcmath", "php83Extensions.intl",
            "php83Extensions.gd", "php83Extensions.opcache",
            "php83Extensions.fileinfo", "php83Extensions.tokenizer",
-           "nodejs_20", "nodePackages.npm"]
+           "php83Packages.composer", "nodejs_20", "nodePackages.npm"]
 
 [phases.install]
 cmds = ["composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist",
