@@ -29,10 +29,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 # PHP extensions
+# tokenizer is bundled+enabled by default; opcache is bundled but needs enable
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) \
         pdo pdo_mysql mbstring xml curl zip bcmath \
-        intl gd opcache tokenizer fileinfo pcntl
+        intl gd fileinfo pcntl && \
+    docker-php-ext-enable opcache
 
 # PHP production config
 RUN echo "opcache.enable=1\n\
