@@ -1,12 +1,11 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/efgcoqbh/haliportal.tickooplug.co.ke
-    - /usr/local/bin/php $DEPLOYPATH/artisan config:clear
-    - /usr/local/bin/php $DEPLOYPATH/artisan route:clear
-    - /usr/local/bin/php $DEPLOYPATH/artisan view:clear
-    - /usr/local/bin/php $DEPLOYPATH/artisan cache:clear
-    - /usr/local/bin/php $DEPLOYPATH/artisan migrate --force
-    - /usr/local/bin/php $DEPLOYPATH/artisan config:cache
-    - /usr/local/bin/php $DEPLOYPATH/artisan route:cache
-    - /usr/local/bin/php $DEPLOYPATH/artisan view:cache
+    - /usr/local/bin/php /home/efgcoqbh/haliportal.tickooplug.co.ke/artisan config:clear
+    - /usr/local/bin/php /home/efgcoqbh/haliportal.tickooplug.co.ke/artisan route:clear
+    - /usr/local/bin/php /home/efgcoqbh/haliportal.tickooplug.co.ke/artisan view:clear
+    - /usr/local/bin/php /home/efgcoqbh/haliportal.tickooplug.co.ke/artisan cache:clear
+    - /usr/local/bin/php /home/efgcoqbh/haliportal.tickooplug.co.ke/artisan migrate --force
+    - /usr/local/bin/php /home/efgcoqbh/haliportal.tickooplug.co.ke/artisan config:cache
+    - /usr/local/bin/php /home/efgcoqbh/haliportal.tickooplug.co.ke/artisan route:cache
+    - /usr/local/bin/php /home/efgcoqbh/haliportal.tickooplug.co.ke/artisan view:cache

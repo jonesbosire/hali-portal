@@ -23,6 +23,11 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 
+# Server-generated files
+error_log
+*.log
+/.git.zip
+
 # Temporary debug/maintenance scripts — never deploy these
 /public/artisan-run.php
 /public/build.zip
