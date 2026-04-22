@@ -1,0 +1,113 @@
+name: Deploy to haliportal.tickooplug.co.ke
+
+on:
+  push:
+    branches: [main]
+
+# Only run one deploy at a time
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────────
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ── 2. Install PHP & run tests before deploying ──────────────────────────
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_mysql, xml, curl, zip, bcmath, intl, gd
+          coverage: none
+
+      - name: Install PHP dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+      # ── 3. Build frontend assets locally to verify they compile ─────────────
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Node dependencies & build assets
+        run: |
+          npm ci
+          npm run build
+
+      # ── 4. SSH deploy — run deploy.sh on the server ─────────────────────────
+      #
+      # Required GitHub Secrets (Settings → Secrets → Actions):
+      #   DEPLOY_HOST       — server IP or hostname
+      #   DEPLOY_USER       — SSH user (e.g. ubuntu or root)
+      #   DEPLOY_SSH_KEY    — private SSH key (contents of ~/.ssh/id_rsa)
+      #   DEPLOY_PORT       — SSH port (usually 22)
+      #
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host:     ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key:      ${{ secrets.DEPLOY_SSH_KEY }}
+          port:     ${{ secrets.DEPLOY_PORT || 22 }}
+          script: |
+            set -e
+            cd /var/www/hali-portal
+
+            echo "--- Pulling latest code ---"
+            git fetch origin
+            git reset --hard origin/main
+
+            echo "--- PHP dependencies ---"
+            composer install \
+              --no-dev \
+              --optimize-autoloader \
+              --no-interaction \
+              --prefer-dist
+
+            echo "--- Node dependencies & assets ---"
+            npm ci --prefer-offline
+            npm run build
+            rm -rf node_modules
+
+            echo "--- Permissions ---"
+            chown -R www-data:www-data storage bootstrap/cache
+            chmod -R 775 storage bootstrap/cache
+
+            echo "--- Migrations ---"
+            php artisan migrate --force
+
+            echo "--- Cache ---"
+            php artisan optimize
+
+            echo "--- Restart queue worker ---"
+            supervisorctl restart hali-worker:*
+
+            echo "--- Reload Nginx ---"
+            nginx -t && systemctl reload nginx
+
+            echo "--- Deploy complete ---"
+
+      # ── 5. Post-deploy health check ──────────────────────────────────────────
+      - name: Health check
+        run: |
+          sleep 5
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            https://haliportal.tickooplug.co.ke/up \
+            --max-time 15 \
+            --retry 3 \
+            --retry-delay 5)
+          echo "Health check status: $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            echo "FAIL: /up returned $STATUS"
+            exit 1
+          fi
+          echo "OK"
