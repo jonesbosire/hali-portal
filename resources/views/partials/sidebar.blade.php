@@ -68,7 +68,7 @@
                 </div>
 
                 {{-- Notifications --}}
-                @php $unread = auth()->user()->unreadNotifications->count(); @endphp
+                @php $unread = auth()->user()->unreadNotifications()->count(); @endphp
                 <a href="{{ route('notifications.index') }}"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm tracking-tight transition-all duration-150
                           {{ request()->routeIs('notifications.*') ? 'bg-white shadow-card text-[#3d1500] font-medium' : 'font-normal text-[#5c3520] hover:bg-[#f5e8d8] hover:text-[#3d1500]' }}">
@@ -116,35 +116,26 @@
         </div>
     </div>
 
-    {{-- User footer with notification ring --}}
+    {{-- User footer --}}
     <div class="flex-shrink-0 px-4 py-4 border-t border-[#edd5be] bg-[#fdf6ef]">
         <div class="flex items-center gap-3">
 
-            {{-- Avatar with spinning ring when there are unread notifications --}}
-            @if($unread > 0)
-                {{-- Larger container to accommodate the ring --}}
-                <div class="relative w-9 h-9 flex-shrink-0">
-                    {{-- Spinning conic-gradient ring --}}
-                    <div class="absolute inset-0 rounded-full animate-spin"
-                         style="background: conic-gradient(#22c55e 70%, #bbf7d0 30%)"></div>
-                    {{-- White gap --}}
-                    <div class="absolute rounded-full bg-[#fdf6ef]" style="inset: 2px"></div>
-                    {{-- Avatar --}}
-                    <div class="absolute rounded-full overflow-hidden" style="inset: 3px">
-                        <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}"
-                             class="w-full h-full object-cover">
-                    </div>
-                </div>
-            @else
-                <div class="relative w-8 h-8 flex-shrink-0 rounded-full overflow-hidden ring-2 ring-[#edd5be]">
-                    <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}"
-                         class="w-full h-full object-cover">
-                </div>
-            @endif
+            {{-- Avatar with unread dot --}}
+            <div class="relative w-8 h-8 flex-shrink-0 rounded-full overflow-hidden ring-2 ring-[#edd5be]">
+                <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}"
+                     class="w-full h-full object-cover">
+                @if($unread > 0)
+                    <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full ring-1 ring-[#fdf6ef]"></span>
+                @endif
+            </div>
 
             <div class="flex-1 min-w-0 overflow-hidden">
                 <p class="text-[#3d1500] text-xs font-medium truncate">{{ auth()->user()->name }}</p>
-                <p class="text-[#9d7060] text-[10px] truncate capitalize">{{ str_replace('_', ' ', auth()->user()->role) }}</p>
+                @if(auth()->user()->isFriend())
+                    <span class="inline-block text-[9px] font-semibold bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full leading-tight">Friend Organisation</span>
+                @else
+                    <p class="text-[#9d7060] text-[10px] truncate capitalize">{{ str_replace('_', ' ', auth()->user()->role) }}</p>
+                @endif
             </div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

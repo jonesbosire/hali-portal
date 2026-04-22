@@ -75,6 +75,9 @@
                                 <div x-show="open" @click.away="open = false"
                                      class="absolute right-0 mt-1 w-36 bg-white border border-hali-border rounded-lg shadow-card-hover z-10"
                                      style="display:none">
+                                    <a href="{{ route('admin.members.show', $member) }}"
+                                       class="block px-3 py-2 text-xs hover:bg-gray-50 text-hali-text-primary">View details</a>
+                                    <div class="border-t border-hali-border"></div>
                                     @if($member->status !== 'active')
                                         <form method="POST" action="{{ route('admin.members.status', $member) }}">
                                             @csrf @method('PATCH')

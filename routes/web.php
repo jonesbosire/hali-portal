@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectoryController;
 use App\Http\Controllers\EventController;
@@ -21,17 +23,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // Logout
-Route::post('/logout', function () {
-    Auth::logout();
-    request()->session()->invalidate();
-    request()->session()->regenerateToken();
-    return redirect('/');
-})->middleware('auth')->name('logout');
+Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth')->name('logout');
 
-// Public routes
+// Welcome / landing page
 Route::get('/', function () {
-    return redirect()->route('login');
-});
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+    return view('welcome');
+})->name('home');
 
 // Serve private uploaded files (auth required — files are outside web root)
 Route::get('/files/{path}', [FileServeController::class, 'serve'])
@@ -45,6 +45,14 @@ Route::post('/invitation/{token}', [InvitationController::class, 'accept'])
     ->middleware('throttle:invitation')
     ->name('invitation.accept');
 
+// ── Stripe webhook ────────────────────────────────────────────────────────────
+// Intentionally outside auth + CSRF middleware — Stripe signs every request with
+// HMAC-SHA256 (STRIPE_WEBHOOK_SECRET). Signature is verified inside the controller.
+Route::post('/webhooks/stripe', [BillingController::class, 'webhook'])
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class])
+    ->middleware('throttle:60,1')
+    ->name('webhooks.stripe');
+
 // Authenticated member routes
 Route::middleware(['auth', 'verified', 'active.user'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -56,7 +64,7 @@ Route::middleware(['auth', 'verified', 'active.user'])->group(function () {
     // Events
     Route::get('/events', [EventController::class, 'index'])->name('events.index');
     Route::get('/events/{event:slug}', [EventController::class, 'show'])->name('events.show');
-    Route::post('/events/{event:slug}/register', [EventController::class, 'register'])->name('events.register');
+    Route::post('/events/{event:slug}/register', [EventController::class, 'register'])->middleware('throttle:event-register')->name('events.register');
     Route::delete('/events/{event:slug}/cancel', [EventController::class, 'cancelRegistration'])->name('events.cancel');
 
     // Stories & Posts
@@ -66,7 +74,7 @@ Route::middleware(['auth', 'verified', 'active.user'])->group(function () {
     // Opportunities — static routes MUST come before wildcard {opportunity}
     Route::get('/opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
     Route::get('/opportunities/create', [OpportunityController::class, 'create'])->name('opportunities.create');
-    Route::post('/opportunities', [OpportunityController::class, 'store'])->name('opportunities.store');
+    Route::post('/opportunities', [OpportunityController::class, 'store'])->middleware('throttle:opportunities')->name('opportunities.store');
     Route::get('/opportunities/{opportunity}', [OpportunityController::class, 'show'])->name('opportunities.show');
 
     // Resources
@@ -83,7 +91,8 @@ Route::middleware(['auth', 'verified', 'active.user'])->group(function () {
     Route::patch('/organization', [ProfileController::class, 'updateOrganization'])->name('organization.update');
 
     // Billing
-    Route::get('/billing', [ProfileController::class, 'billing'])->name('billing.index');
+    Route::get('/billing', [BillingController::class, 'index'])->name('billing.index');
+    Route::post('/billing/portal', [BillingController::class, 'portal'])->name('billing.portal');
 
     // Notifications
     Route::get('/notifications', function () {
@@ -119,6 +128,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'admin']
     Route::resource('events', AdminEventController::class);
     Route::post('/events/{event}/attendees/{registration}/attend', [AdminEventController::class, 'markAttended'])->name('events.attend');
     Route::get('/events/{event}/export', [AdminEventController::class, 'exportAttendees'])->name('events.export');
+
+    // Event programs (agenda)
+    Route::post('/events/{event}/programs', [AdminEventController::class, 'storeProgram'])->name('events.programs.store');
+    Route::delete('/events/{event}/programs/{program}', [AdminEventController::class, 'destroyProgram'])->name('events.programs.destroy');
 
     // Posts
     Route::resource('posts', AdminPostController::class);

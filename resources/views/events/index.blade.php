@@ -7,7 +7,7 @@
             @if($featuredEvent->cover_image)
                 <img src="{{ route('files.serve', ['path' => $featuredEvent->cover_image]) }}"
                      alt="{{ $featuredEvent->title }}"
-                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                     class="absolute inset-0 w-full h-full object-cover">
             @else
                 <div class="absolute inset-0 bg-gradient-to-br from-primary to-primary-container"></div>
             @endif
@@ -120,10 +120,9 @@
                 </div>
 
                 {{-- Alert promo --}}
-                <div class="mt-4 bg-primary p-6 rounded-2xl text-white space-y-3">
-                    <i class="fa-solid fa-wand-sparkles text-4xl opacity-50"></i>
-                    <p class="font-headline font-bold text-lg leading-tight">Stay in the loop</p>
-                    <p class="text-xs text-white/70 leading-relaxed">New events are added regularly. Check back often!</p>
+                <div class="mt-4 bg-primary p-5 rounded-2xl text-white space-y-2">
+                    <p class="font-headline font-bold text-base leading-tight">New events are added regularly</p>
+                    <p class="text-xs text-white/70 leading-relaxed">Check back often to see what is coming up.</p>
                 </div>
             </form>
         </aside>
@@ -132,10 +131,22 @@
         <div class="flex-1 min-w-0">
             <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center gap-3">
-                    <h3 class="text-xl font-headline font-bold text-on-surface">Upcoming Journeys</h3>
+                    <h3 class="text-xl font-headline font-bold text-on-surface">Events</h3>
                     <span class="px-2 py-0.5 rounded-lg bg-primary/10 text-primary text-[10px] font-bold uppercase">
                         {{ $events->total() }} EVENTS
                     </span>
+                </div>
+                {{-- View toggle --}}
+                <div class="flex items-center gap-1">
+                    <span class="px-3 py-2 rounded-xl text-sm font-semibold bg-primary text-white flex items-center gap-1.5">
+                        <i class="fa-solid fa-grip text-[13px]"></i>
+                        <span class="hidden sm:inline">List</span>
+                    </span>
+                    <a href="{{ route('events.index', ['view' => 'calendar']) }}"
+                       class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold text-on-surface-variant hover:bg-surface-container-low border border-outline-variant/30 transition-colors">
+                        <i class="fa-solid fa-calendar-days text-[13px]"></i>
+                        <span class="hidden sm:inline">Calendar</span>
+                    </a>
                 </div>
             </div>
 
@@ -153,7 +164,7 @@
                                 @if($event->cover_image)
                                     <img src="{{ route('files.serve', ['path' => $event->cover_image]) }}"
                                          alt="{{ $event->title }}"
-                                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                         class="w-full h-full object-cover">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center">
                                         <i class="fa-solid fa-calendar-day text-white/30 text-6xl"></i>

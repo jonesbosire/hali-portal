@@ -15,10 +15,8 @@ class DashboardController extends Controller
 
         $upcomingEvents = Event::published()
             ->upcoming()
-            ->when(!$user->isAdmin(), fn($q) => $q->where(function ($q) {
-                $q->where('is_members_only', false)->orWhere('is_members_only', true);
-            }))
-            ->with(['creator:id,name', 'registrations'])
+            ->with(['creator:id,name'])
+            ->withCount('registrations')
             ->take(3)
             ->get();
 
@@ -39,13 +37,12 @@ class DashboardController extends Controller
         // Profile completeness
         $completeness = $this->calcProfileCompleteness($user);
 
-        // Admin stats
         $adminStats = null;
         if ($user->isAdmin()) {
             $adminStats = [
-                'total_members' => \App\Models\User::whereIn('role', ['member', 'friend'])->count(),
-                'pending_members' => \App\Models\User::where('status', 'pending')->count(),
-                'upcoming_events' => Event::published()->upcoming()->count(),
+                'total_members'        => \App\Models\User::whereIn('role', ['member', 'friend'])->where('status', 'active')->count(),
+                'pending_members'      => \App\Models\User::where('status', 'pending')->count(),
+                'upcoming_events'      => Event::published()->upcoming()->count(),
                 'active_opportunities' => Opportunity::active()->count(),
             ];
         }

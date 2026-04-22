@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\AccountStatusChanged;
 use Illuminate\Http\Request;
 
 class AdminMemberController extends Controller
@@ -14,9 +15,12 @@ class AdminMemberController extends Controller
             ->orderByDesc('created_at');
 
         if ($search = $request->get('q')) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+            // Escape LIKE special characters so % and _ in the search term are
+            // treated as literals, not wildcards, preventing unexpected broad matches.
+            $escaped = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $search);
+            $query->where(function ($q) use ($escaped) {
+                $q->where('name', 'like', "%{$escaped}%")
+                  ->orWhere('email', 'like', "%{$escaped}%");
             });
         }
 
@@ -76,6 +80,9 @@ class AdminMemberController extends Controller
             ->performedOn($user)
             ->withProperties(['new_status' => $request->status])
             ->log('user_status_changed');
+
+        // Notify the affected user (queued — non-blocking)
+        $user->notify(new AccountStatusChanged($request->status));
 
         return back()->with('success', "User status updated to {$request->status}.");
     }

@@ -6,6 +6,7 @@ use App\Models\Organization;
 use App\Rules\SafeUrl;
 use App\Services\FileUploadService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -82,14 +83,14 @@ class ProfileController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        // Invalidate all other sessions after password change
-        $request->session()->invalidate();
+        // Invalidate every other active session (other browsers/devices) so
+        // a stolen session token can't be used after a password change.
+        Auth::logoutOtherDevices($request->password);
+
+        // Regenerate the current session token to prevent fixation
         $request->session()->regenerateToken();
 
-        // Re-authenticate with new password so user stays logged in
-        auth()->login($request->user()->fresh());
-
-        return back()->with('success', 'Password changed successfully. Please log in again if prompted.');
+        return back()->with('success', 'Password changed successfully. All other devices have been signed out.');
     }
 
     public function destroy(Request $request)
@@ -179,14 +180,4 @@ class ProfileController extends Controller
         return back()->with('success', 'Organization updated successfully.');
     }
 
-    public function billing(Request $request)
-    {
-        $user         = $request->user();
-        $organization = $user->primaryOrganization();
-        $subscription = $organization?->subscription;
-        $invoices     = $organization?->invoices()->orderByDesc('created_at')->take(10)->get() ?? collect();
-        $plans        = \App\Models\MembershipPlan::active()->get();
-
-        return view('profile.billing', compact('user', 'organization', 'subscription', 'invoices', 'plans'));
-    }
 }

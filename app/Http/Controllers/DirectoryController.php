@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DirectoryListing;
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class DirectoryController extends Controller
 {
@@ -32,8 +33,11 @@ class DirectoryController extends Controller
 
         $organizations = $query->paginate(12)->withQueryString();
 
-        $countries = Organization::active()->whereNotNull('country')
-            ->distinct()->pluck('country')->sort()->values();
+        // Countries rarely change — cache for 1 hour
+        $countries = Cache::remember('directory_countries', 3600, fn () =>
+            Organization::active()->whereNotNull('country')
+                ->distinct()->orderBy('country')->pluck('country')->filter(fn($c) => is_string($c))->values()
+        );
 
         return view('directory.index', compact('organizations', 'countries'));
     }
@@ -44,9 +48,9 @@ class DirectoryController extends Controller
             ->with(['members', 'directoryListing', 'opportunities' => fn($q) => $q->active()->take(3)])
             ->firstOrFail();
 
+        // Show non-primary contacts only — orWherePivot would escape the pivot scope
         $teamMembers = $organization->members()
             ->wherePivot('is_primary', false)
-            ->orWherePivot('role', 'staff')
             ->take(10)
             ->get();
 

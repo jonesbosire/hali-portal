@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Event;
 use App\Models\EventRegistration;
+use App\Notifications\EventRegistrationConfirmation;
 use Livewire\Component;
 
 class EventRegistrationForm extends Component
@@ -16,6 +17,8 @@ class EventRegistrationForm extends Component
 
     public bool $registered = false;
 
+    public int $attendeeCount = 0;
+
     public function mount(Event $event): void
     {
         $this->registration = auth()->user()
@@ -23,7 +26,8 @@ class EventRegistrationForm extends Component
             ->where('event_id', $event->id)
             ->first();
 
-        $this->registered = $this->registration && $this->registration->status !== 'canceled';
+        $this->registered     = $this->registration && $this->registration->status !== 'canceled';
+        $this->attendeeCount  = $event->attendees()->count();
     }
 
     public function register(): void
@@ -34,6 +38,10 @@ class EventRegistrationForm extends Component
         }
         if ($this->event->isFull()) {
             $this->js("window.toast('error', 'This event is full.')");
+            return;
+        }
+        if ($this->event->is_members_only && !auth()->user()->isMember() && !auth()->user()->isAdmin()) {
+            $this->js("window.toast('error', 'This event is open to members only.')");
             return;
         }
         if ($this->registered) {
@@ -56,8 +64,12 @@ class EventRegistrationForm extends Component
             'registered_at'        => now(),
         ]);
 
-        $this->registered = true;
+        $this->registered    = true;
+        $this->attendeeCount = $this->event->attendees()->count();
         $this->reset('dietary_requirements', 'registration_notes');
+
+        // Send in-app + email confirmation (queued — non-blocking)
+        auth()->user()->notify(new EventRegistrationConfirmation($this->event, $this->registration));
 
         $title   = "You're registered!";
         $message = "See you at {$this->event->title}. Check your email for confirmation.";
@@ -73,8 +85,8 @@ class EventRegistrationForm extends Component
             'canceled_at' => now(),
         ]);
 
-        $this->registered = false;
-        $this->event->refresh();
+        $this->registered    = false;
+        $this->attendeeCount = $this->event->attendees()->count();
 
         $this->js("window.toast('info', 'Your registration has been canceled.')");
     }

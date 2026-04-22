@@ -4,7 +4,7 @@
     <div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
             <h1 class="font-headline text-2xl md:text-3xl font-bold text-on-surface tracking-tight">
-                Welcome back, {{ explode(' ', auth()->user()->name)[0] }} 👋
+                Hello, {{ explode(' ', auth()->user()->name)[0] }}
             </h1>
             <p class="text-on-surface-variant mt-1 text-sm">
                 {{ now()->format('l, F j, Y') }}
@@ -15,7 +15,7 @@
         </div>
         <div class="flex items-center gap-2 flex-wrap">
             <span class="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 text-emerald-700 px-3 py-1.5 rounded-full text-xs font-bold">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                 Active Member
             </span>
             <a href="{{ route('posts.index') }}"
@@ -72,7 +72,7 @@
                     ]; @endphp
                     @foreach($quickLinks as $link)
                         <a href="{{ route($link['route']) }}"
-                           class="bg-white border border-surface-container-high p-4 md:p-5 rounded-2xl group hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-start gap-3">
+                           class="bg-white border border-surface-container-high p-4 md:p-5 rounded-2xl group hover:shadow-card-hover transition-colors flex flex-col items-start gap-3">
                             <div class="w-10 h-10 rounded-xl {{ $link['light'] }} flex items-center justify-center group-hover:{{ $link['bg'] }} group-hover:text-white transition-all duration-200">
                                 <i class="fa-solid {{ $link['icon'] }} {{ $link['text'] }} group-hover:text-white text-base transition-colors"></i>
                             </div>
@@ -281,14 +281,14 @@
             </div>
 
             {{-- CTA --}}
-            <div class="bg-gradient-to-br from-[#7c3d1f] via-[#9b4e28] to-[#0d6b62] p-5 rounded-2xl text-white">
-                <h4 class="font-headline font-bold text-base mb-1">Network Highlight</h4>
+            <div class="bg-[#7c3d1f] p-5 rounded-2xl text-white">
+                <h4 class="font-headline font-bold text-base mb-1">Stories from the network</h4>
                 <p class="text-xs text-white/80 leading-relaxed mb-4">
-                    Explore stories and impact created across the HALI Access partner network.
+                    See what partner organisations across the network have been doing.
                 </p>
                 <a href="{{ route('posts.index', ['type' => 'story']) }}"
                    class="block w-full py-2 bg-white/20 hover:bg-white/30 border border-white/30 text-white text-xs font-bold rounded-xl transition-colors text-center">
-                    Read Success Stories
+                    Read stories
                 </a>
             </div>
 

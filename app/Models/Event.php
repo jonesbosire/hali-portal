@@ -53,6 +53,11 @@ class Event extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function programs()
+    {
+        return $this->hasMany(EventProgram::class)->orderBy('sort_order')->orderBy('start_time');
+    }
+
     public function registrations()
     {
         return $this->hasMany(EventRegistration::class);

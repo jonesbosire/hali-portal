@@ -11,7 +11,7 @@
             {{-- Main --}}
             <div class="lg:col-span-2 space-y-5">
                 @if($event->cover_image)
-                    <img src="{{ asset('storage/'.$event->cover_image) }}" alt="{{ $event->title }}"
+                    <img src="{{ route('files.serve', ['path' => $event->cover_image]) }}" alt="{{ $event->title }}"
                          class="w-full rounded-2xl object-cover max-h-72">
                 @endif
 
@@ -28,10 +28,56 @@
                     </div>
                     @if($event->content)
                         <div class="prose prose-sm max-w-none text-hali-text-secondary mt-4 pt-4 border-t border-hali-border">
-                            {!! $event->content !!}
+                            {!! nl2br(e($event->content)) !!}
                         </div>
                     @endif
                 </div>
+
+                {{-- ── Event Program / Agenda ── --}}
+                @if($event->programs->isNotEmpty())
+                    <div class="bg-white rounded-xl border border-hali-border shadow-card p-6">
+                        <h2 class="text-base font-bold text-hali-text-primary mb-5 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                            Programme
+                        </h2>
+                        <ol class="space-y-4">
+                            @foreach($event->programs as $item)
+                                <li class="flex gap-4">
+                                    {{-- time column --}}
+                                    <div class="w-20 flex-shrink-0 text-right">
+                                        @if($item->time_range)
+                                            <span class="text-xs font-mono text-hali-text-secondary leading-5">{{ $item->time_range }}</span>
+                                        @else
+                                            <span class="text-xs text-hali-text-secondary leading-5">—</span>
+                                        @endif
+                                    </div>
+                                    {{-- dot --}}
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-3 h-3 rounded-full bg-primary mt-1 flex-shrink-0"></div>
+                                        @if(!$loop->last)
+                                            <div class="w-px flex-1 bg-hali-border mt-1"></div>
+                                        @endif
+                                    </div>
+                                    {{-- content --}}
+                                    <div class="pb-4 flex-1 min-w-0">
+                                        <p class="text-sm font-semibold text-hali-text-primary leading-snug">{{ $item->title }}</p>
+                                        @if($item->speaker)
+                                            <p class="text-xs text-primary mt-0.5">
+                                                {{ $item->speaker }}
+                                                @if($item->speaker_title)
+                                                    <span class="text-hali-text-secondary"> · {{ $item->speaker_title }}</span>
+                                                @endif
+                                            </p>
+                                        @endif
+                                        @if($item->description)
+                                            <p class="text-xs text-hali-text-secondary mt-1 leading-relaxed">{{ $item->description }}</p>
+                                        @endif
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ol>
+                    </div>
+                @endif
             </div>
 
             {{-- Sidebar --}}
@@ -72,12 +118,7 @@
                             </div>
                         </div>
 
-                        @if($event->max_attendees)
-                            <div class="flex items-center gap-3">
-                                <svg class="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                                <span>{{ $attendeeCount }} / {{ $event->max_attendees }} registered</span>
-                            </div>
-                        @endif
+                        {{-- Attendee count is rendered reactively by the Livewire component below --}}
                     </div>
 
                     {{-- Add to calendar --}}

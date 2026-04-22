@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'africastalking' => [
+        'username' => env('AT_USERNAME'),
+        'api_key'  => env('AT_API_KEY'),
+        'from'     => env('AT_FROM', ''),
+    ],
+
 ];

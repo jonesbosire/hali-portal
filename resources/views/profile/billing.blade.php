@@ -2,6 +2,13 @@
     <div class="max-w-2xl">
         <h1 class="text-xl font-bold text-hali-text-primary mb-6">Billing & Subscription</h1>
 
+        {{-- Error / success flash --}}
+        @if(session('error'))
+            <div class="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-5">
+                {{ session('error') }}
+            </div>
+        @endif
+
         {{-- Current plan --}}
         <div class="bg-white rounded-2xl border border-hali-border shadow-card p-6 mb-5">
             <h2 class="text-sm font-semibold text-hali-text-primary mb-4">Current Plan</h2>
@@ -30,6 +37,19 @@
                         @endforeach
                     </ul>
                 @endif
+
+                {{-- Stripe Customer Portal --}}
+                <div class="mt-5 pt-4 border-t border-hali-border">
+                    <p class="text-xs text-hali-text-secondary mb-3">Need to update your card or download a receipt? Use the billing portal.</p>
+                    <form method="POST" action="{{ route('billing.portal') }}">
+                        @csrf
+                        <button type="submit"
+                                class="inline-flex items-center gap-2 text-sm font-medium bg-white border border-hali-border text-hali-text-primary px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            Manage billing on Stripe
+                        </button>
+                    </form>
+                </div>
             @elseif($subscription && $subscription->isPastDue())
                 <div class="bg-red-50 border border-red-200 rounded-xl p-4">
                     <p class="text-red-700 font-semibold">Payment Overdue</p>

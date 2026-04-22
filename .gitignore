@@ -22,3 +22,13 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Temporary debug/maintenance scripts — never deploy these
+/public/artisan-run.php
+/public/build.zip
+/public/cc.php
+/public/debug*.php
+/public/logintest.php
+/public/resetpw2.php
+/public/sessiontest.php
+/public/showlog.php

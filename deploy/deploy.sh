@@ -9,8 +9,8 @@ set -euo pipefail
 APP_NAME="hali-portal"
 APP_DIR="/var/www/$APP_NAME"
 GIT_REPO="${1:-}"
-DOMAIN="${2:-}"
-DEPLOY_USER="nginx"
+DOMAIN="${2:-haliportal.tickooplug.co.ke}"
+DEPLOY_USER="www-data"
 
 # Detect re-deploy (no args, already cloned)
 if [ -z "$GIT_REPO" ] && [ -f "$APP_DIR/artisan" ]; then
@@ -63,26 +63,38 @@ if [ ! -f "$APP_DIR/.env" ]; then
 fi
 
 # Patch .env for production
-sed -i "s|APP_ENV=.*|APP_ENV=production|"                   "$APP_DIR/.env"
-sed -i "s|APP_DEBUG=.*|APP_DEBUG=false|"                    "$APP_DIR/.env"
-sed -i "s|SESSION_DRIVER=.*|SESSION_DRIVER=database|"       "$APP_DIR/.env"
-sed -i "s|CACHE_STORE=.*|CACHE_STORE=database|"             "$APP_DIR/.env"
-sed -i "s|QUEUE_CONNECTION=.*|QUEUE_CONNECTION=database|"   "$APP_DIR/.env"
-sed -i "s|FILESYSTEM_DISK=.*|FILESYSTEM_DISK=local|"        "$APP_DIR/.env"
-sed -i "s|LOG_CHANNEL=.*|LOG_CHANNEL=daily|"                "$APP_DIR/.env"
+sed -i "s|APP_ENV=.*|APP_ENV=production|"                               "$APP_DIR/.env"
+sed -i "s|APP_DEBUG=.*|APP_DEBUG=false|"                                "$APP_DIR/.env"
+sed -i "s|SESSION_DRIVER=.*|SESSION_DRIVER=database|"                   "$APP_DIR/.env"
+sed -i "s|SESSION_ENCRYPT=.*|SESSION_ENCRYPT=true|"                     "$APP_DIR/.env"
+sed -i "s|SESSION_SECURE_COOKIE=.*|SESSION_SECURE_COOKIE=true|"         "$APP_DIR/.env"
+sed -i "s|CACHE_STORE=.*|CACHE_STORE=database|"                         "$APP_DIR/.env"
+sed -i "s|QUEUE_CONNECTION=.*|QUEUE_CONNECTION=database|"               "$APP_DIR/.env"
+sed -i "s|FILESYSTEM_DISK=.*|FILESYSTEM_DISK=local|"                    "$APP_DIR/.env"
+sed -i "s|LOG_CHANNEL=.*|LOG_CHANNEL=daily|"                            "$APP_DIR/.env"
+sed -i "s|LOG_LEVEL=.*|LOG_LEVEL=error|"                                "$APP_DIR/.env"
 
-# Patch DB credentials from setup
+# Patch DB credentials (written by vps-ubuntu-setup.sh or aws-ec2-setup.sh)
 if [ -f /root/hali-credentials.txt ]; then
     DB_PASS=$(grep DB_PASSWORD /root/hali-credentials.txt | cut -d= -f2)
     sed -i "s|DB_HOST=.*|DB_HOST=127.0.0.1|"              "$APP_DIR/.env"
+    sed -i "s|DB_CONNECTION=.*|DB_CONNECTION=mysql|"       "$APP_DIR/.env"
     sed -i "s|DB_DATABASE=.*|DB_DATABASE=hali_portal|"    "$APP_DIR/.env"
     sed -i "s|DB_USERNAME=.*|DB_USERNAME=hali_user|"      "$APP_DIR/.env"
     sed -i "s|DB_PASSWORD=.*|DB_PASSWORD=$DB_PASS|"       "$APP_DIR/.env"
 fi
 
-# Set APP_URL
+# Set APP_URL, ASSET_URL and session domain
 if [ -n "$DOMAIN" ]; then
-    sed -i "s|APP_URL=.*|APP_URL=https://$DOMAIN|" "$APP_DIR/.env"
+    sed -i "s|APP_URL=.*|APP_URL=https://$DOMAIN|"             "$APP_DIR/.env"
+    # ASSET_URL must match APP_URL exactly — this is what @vite() and asset() use
+    # to prefix CSS/JS hrefs. Wrong value = blank page / no styles.
+    if grep -q "^ASSET_URL=" "$APP_DIR/.env"; then
+        sed -i "s|ASSET_URL=.*|ASSET_URL=https://$DOMAIN|"     "$APP_DIR/.env"
+    else
+        echo "ASSET_URL=https://$DOMAIN"                     >> "$APP_DIR/.env"
+    fi
+    sed -i "s|SESSION_DOMAIN=.*|SESSION_DOMAIN=$DOMAIN|"       "$APP_DIR/.env"
 fi
 
 # ==============================================================================
@@ -158,27 +170,29 @@ supervisorctl restart hali-scheduler 2>/dev/null || true
 # ==============================================================================
 if [ "$REDEPLOY" = false ] && [ -n "$DOMAIN" ] && [ "$DOMAIN" != "localhost" ]; then
     echo "[11] Setting up SSL (Let's Encrypt)..."
-    dnf install -y certbot python3-certbot-nginx 2>/dev/null || \
-    pip3 install certbot certbot-nginx 2>/dev/null || \
-    echo "  WARNING: certbot not installed. Run manually: certbot --nginx -d $DOMAIN"
+    # Install certbot — works on both Ubuntu (apt) and Amazon Linux (dnf)
+    if command -v apt-get &>/dev/null; then
+        apt-get install -y -qq certbot python3-certbot-nginx
+    elif command -v dnf &>/dev/null; then
+        dnf install -y certbot python3-certbot-nginx 2>/dev/null || true
+    fi
 
     if command -v certbot &>/dev/null; then
         certbot --nginx \
             -d "$DOMAIN" \
             --non-interactive \
             --agree-tos \
-            --email "admin@haliaccess.org" \
-            --redirect || echo "  SSL setup failed — check DNS is pointing to this server first"
-
-        # Update Nginx conf to force HTTPS
-        sed -i "s|server_name _;|server_name $DOMAIN;|" \
-            /etc/nginx/conf.d/$APP_NAME.conf
+            --email "portal@haliaccess.org" \
+            --redirect || echo "  SSL setup failed — DNS must point to this server's IP first"
         systemctl reload nginx
+    else
+        echo "  WARNING: certbot not found. Install manually and run:"
+        echo "    certbot --nginx -d $DOMAIN --email portal@haliaccess.org --agree-tos --redirect"
     fi
 
-    # Auto-renew cron
-    echo "0 3 * * * certbot renew --quiet --post-hook 'systemctl reload nginx'" \
-        | crontab -u root -
+    # Auto-renew cron (certbot usually installs a systemd timer, this is a fallback)
+    (crontab -l 2>/dev/null; echo "0 3 * * * certbot renew --quiet --post-hook 'systemctl reload nginx'") \
+        | sort -u | crontab -
 fi
 
 # ==============================================================================

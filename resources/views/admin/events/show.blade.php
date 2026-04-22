@@ -117,6 +117,102 @@
                     {{-- links omitted; registrations loaded as eager collection --}}
                 @endif
             </div>
+
+            {{-- ── Event Program / Agenda ── --}}
+            <div class="bg-white rounded-2xl border border-hali-border shadow-card overflow-hidden">
+                <div class="flex items-center justify-between p-5 border-b border-hali-border">
+                    <h3 class="text-sm font-semibold text-hali-text-primary">
+                        Event Program / Agenda
+                        <span class="ml-2 text-xs font-normal text-hali-text-secondary">(visible to all attendees)</span>
+                    </h3>
+                </div>
+
+                {{-- Existing items --}}
+                @if($event->programs->isEmpty())
+                    <div class="p-6 text-center text-sm text-hali-text-secondary">No program items yet. Add the first session below.</div>
+                @else
+                    <div class="divide-y divide-hali-border">
+                        @foreach($event->programs as $item)
+                            <div class="flex items-start justify-between gap-4 px-5 py-4">
+                                <div class="flex items-start gap-3">
+                                    <div class="flex-shrink-0 w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center text-xs font-bold text-primary">
+                                        {{ $loop->iteration }}
+                                    </div>
+                                    <div>
+                                        @if($item->time_range)
+                                            <p class="text-xs text-hali-text-secondary mb-0.5">{{ $item->time_range }}</p>
+                                        @endif
+                                        <p class="text-sm font-semibold text-hali-text-primary">{{ $item->title }}</p>
+                                        @if($item->speaker)
+                                            <p class="text-xs text-hali-text-secondary mt-0.5">
+                                                {{ $item->speaker }}
+                                                @if($item->speaker_title) · {{ $item->speaker_title }} @endif
+                                            </p>
+                                        @endif
+                                        @if($item->description)
+                                            <p class="text-xs text-hali-text-secondary mt-1">{{ $item->description }}</p>
+                                        @endif
+                                    </div>
+                                </div>
+                                <form method="POST" action="{{ route('admin.events.programs.destroy', [$event, $item]) }}" class="flex-shrink-0">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" onclick="return confirm('Remove this program item?')"
+                                            class="text-xs text-red-400 hover:text-red-600 transition-colors">Remove</button>
+                                </form>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+                {{-- Add new item form --}}
+                <div class="border-t border-hali-border p-5 bg-gray-50/50">
+                    <p class="text-xs font-semibold text-hali-text-secondary uppercase tracking-wide mb-3">Add Program Item</p>
+                    <form method="POST" action="{{ route('admin.events.programs.store', $event) }}" class="space-y-3">
+                        @csrf
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="sm:col-span-2">
+                                <input type="text" name="title" placeholder="Session title *" required
+                                       value="{{ old('title') }}"
+                                       class="w-full text-sm border border-hali-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary/20 bg-white">
+                                @error('title') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
+                            </div>
+                            <div>
+                                <input type="text" name="speaker" placeholder="Speaker name"
+                                       value="{{ old('speaker') }}"
+                                       class="w-full text-sm border border-hali-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary/20 bg-white">
+                            </div>
+                            <div>
+                                <input type="text" name="speaker_title" placeholder="Speaker title / org"
+                                       value="{{ old('speaker_title') }}"
+                                       class="w-full text-sm border border-hali-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary/20 bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-hali-text-secondary mb-1">Start time</label>
+                                <input type="time" name="start_time" value="{{ old('start_time') }}"
+                                       class="w-full text-sm border border-hali-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary/20 bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-hali-text-secondary mb-1">End time</label>
+                                <input type="time" name="end_time" value="{{ old('end_time') }}"
+                                       class="w-full text-sm border border-hali-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary/20 bg-white">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <textarea name="description" rows="2" placeholder="Brief description (optional)"
+                                          class="w-full text-sm border border-hali-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary/20 bg-white resize-none">{{ old('description') }}</textarea>
+                            </div>
+                            <div>
+                                <input type="number" name="sort_order" placeholder="Order (0, 1, 2…)"
+                                       value="{{ old('sort_order') }}" min="0"
+                                       class="w-full text-sm border border-hali-border rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary/20 bg-white">
+                            </div>
+                        </div>
+                        <button type="submit"
+                                class="text-sm bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors">
+                            + Add to Program
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
 
         {{-- Sidebar --}}

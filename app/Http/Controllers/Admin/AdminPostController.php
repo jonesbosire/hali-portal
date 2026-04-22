@@ -13,7 +13,7 @@ class AdminPostController extends Controller
     public function index()
     {
         $posts = Post::withTrashed()
-            ->select(['id', 'title', 'type', 'status', 'is_featured', 'is_members_only', 'published_at', 'created_at', 'deleted_at', 'author_id'])
+            ->select(['id', 'slug', 'title', 'type', 'status', 'is_featured', 'is_members_only', 'published_at', 'created_at', 'deleted_at', 'author_id'])
             ->with(['author:id,name', 'categories:id,name,slug'])
             ->orderByDesc('created_at')
             ->paginate(20);

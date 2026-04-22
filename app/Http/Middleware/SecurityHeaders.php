@@ -21,8 +21,11 @@ class SecurityHeaders
         // frame-ancestors: blocks embedding in foreign iframes (double-click jacking)
         $response->headers->set('Content-Security-Policy',
             "default-src 'self'; " .
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.jsdelivr.net unpkg.com; " .
-            "style-src 'self' 'unsafe-inline' cdn.jsdelivr.net fonts.googleapis.com; " .
+            // 'unsafe-inline' required by Livewire inline event handlers and Alpine.js x- directives.
+            // 'unsafe-eval' required by Alpine.js (bundled in Livewire) — it uses new AsyncFunction()
+            // to evaluate wire: and x- expressions. Removing it silently breaks all Livewire forms.
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " .
+            "style-src 'self' 'unsafe-inline' fonts.googleapis.com; " .
             "font-src 'self' fonts.gstatic.com data:; " .
             "img-src 'self' data: blob: ui-avatars.com; " .
             "connect-src 'self'; " .

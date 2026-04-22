@@ -28,6 +28,13 @@ return Application::configure(basePath: dirname(__DIR__))
         // ── Security headers on every web response ────────────────────────
         $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
 
+        // ── AuthenticateSession — required for Auth::logoutOtherDevices() ──
+        // Stores a hashed password in the session; if the password changes on
+        // another device, that session is invalidated on the next request.
+        $middleware->web(append: [
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
+        ]);
+
         // ── Middleware aliases ─────────────────────────────────────────────
         $middleware->alias([
             'active.user' => \App\Http\Middleware\EnsureUserIsActive::class,

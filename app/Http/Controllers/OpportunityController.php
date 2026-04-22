@@ -50,17 +50,21 @@ class OpportunityController extends Controller
 
     public function store(Request $request)
     {
+        // Collect the IDs of organizations this user actually belongs to
+        $userOrgIds = auth()->user()->organizations()->pluck('organizations.id')->toArray();
+
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'type' => 'required|in:job,fellowship,scholarship,internship,volunteer',
-            'description' => 'required|string',
-            'requirements' => 'nullable|string',
-            'location' => 'nullable|string|max:255',
-            'salary_range' => 'nullable|string|max:255',
+            'title'           => 'required|string|max:255',
+            'type'            => 'required|in:job,fellowship,scholarship,internship,volunteer',
+            'description'     => 'required|string',
+            'requirements'    => 'nullable|string',
+            'location'        => 'nullable|string|max:255',
+            'salary_range'    => 'nullable|string|max:255',
             'application_url' => ['nullable', 'url', 'max:500', new SafeUrl()],
-            'deadline_at' => 'nullable|date|after:today',
+            'deadline_at'     => 'nullable|date|after:today',
             'is_members_only' => 'boolean',
-            'organization_id' => 'nullable|exists:organizations,id',
+            // Ensure the submitted org ID is one the user actually belongs to
+            'organization_id' => ['nullable', 'in:' . implode(',', $userOrgIds)],
         ]);
 
         $validated['posted_by'] = auth()->id();
