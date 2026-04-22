@@ -20,11 +20,13 @@
 
 ## 1. What the Portal Is
 
-The **HALI Access Partner Portal** is a private, invitation-only platform for HALI Access Network member organisations and partners. It serves as a central hub where member organisations can:
+HALI Access Network is a coalition of non-profit organisations, secondary schools, tertiary institutions, and access organisations dedicated to supporting high-achieving, low-income students from sub-Saharan Africa in pursuing university education. The network operates across **17 countries**, supports **2,000+ students annually**, and has channelled **$150 million** in grants and scholarships.
 
-- Stay informed through events, stories, and bulletins
-- Discover and post opportunities for students and professionals
-- Connect with other member organisations through a searchable directory
+The **HALI Access Partner Portal** is the network's private, invitation-only platform connecting all member organisations and partners. It serves as the central hub where members can:
+
+- Stay informed through events, stories, and bulletins from the Secretariat
+- Discover and post opportunities — jobs, fellowships, scholarships, internships
+- Connect with the full network through a searchable member organisation directory
 - Manage their organisational profile and billing subscription
 - Receive real-time notifications via email, SMS, and in-app alerts
 

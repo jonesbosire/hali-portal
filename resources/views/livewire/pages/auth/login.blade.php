@@ -59,15 +59,15 @@ new #[Layout('layouts.guest')] class extends Component
             </h2>
             <div class="grid grid-cols-3 gap-4 mb-8">
                 <div class="bg-white/10 rounded-xl p-3 text-center">
-                    <p class="font-headline text-2xl font-bold text-white">40+</p>
+                    <p class="font-headline text-2xl font-bold text-white">16+</p>
                     <p class="text-white/60 text-[10px] uppercase tracking-wider mt-0.5">Member Orgs</p>
                 </div>
                 <div class="bg-white/10 rounded-xl p-3 text-center">
-                    <p class="font-headline text-2xl font-bold text-white">10K+</p>
-                    <p class="text-white/60 text-[10px] uppercase tracking-wider mt-0.5">Students</p>
+                    <p class="font-headline text-2xl font-bold text-white">2,000+</p>
+                    <p class="text-white/60 text-[10px] uppercase tracking-wider mt-0.5">Students Yearly</p>
                 </div>
                 <div class="bg-white/10 rounded-xl p-3 text-center">
-                    <p class="font-headline text-2xl font-bold text-white">20+</p>
+                    <p class="font-headline text-2xl font-bold text-white">17</p>
                     <p class="text-white/60 text-[10px] uppercase tracking-wider mt-0.5">Countries</p>
                 </div>
             </div>
