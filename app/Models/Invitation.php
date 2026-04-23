@@ -12,7 +12,7 @@ class Invitation extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        'email', 'token', 'role', 'organization_id', 'invited_by', 'expires_at', 'accepted_at',
+        'email', 'token', 'role', 'membership_tier_id', 'organization_id', 'invited_by', 'expires_at', 'accepted_at',
     ];
 
     protected function casts(): array
@@ -23,15 +23,16 @@ class Invitation extends Model
         ];
     }
 
-    public static function generate(string $email, string $role = 'member', ?string $organizationId = null, ?string $invitedBy = null): self
+    public static function generate(string $email, string $role = 'member', ?string $organizationId = null, ?string $invitedBy = null, ?string $membershipTierId = null): self
     {
         return static::create([
-            'email' => $email,
-            'token' => Str::random(64),
-            'role' => $role,
-            'organization_id' => $organizationId,
-            'invited_by' => $invitedBy,
-            'expires_at' => now()->addDays(7),
+            'email'              => $email,
+            'token'              => Str::random(64),
+            'role'               => $role,
+            'membership_tier_id' => $membershipTierId,
+            'organization_id'    => $organizationId,
+            'invited_by'         => $invitedBy,
+            'expires_at'         => now()->addDays(7),
         ]);
     }
 
@@ -51,6 +52,11 @@ class Invitation extends Model
     }
 
     // Relationships
+    public function membershipTier()
+    {
+        return $this->belongsTo(MembershipPlan::class, 'membership_tier_id');
+    }
+
     public function organization()
     {
         return $this->belongsTo(Organization::class);

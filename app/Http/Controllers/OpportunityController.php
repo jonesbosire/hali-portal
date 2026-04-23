@@ -11,6 +11,7 @@ class OpportunityController extends Controller
     public function index(Request $request)
     {
         $query = Opportunity::active()
+            ->fromActivePosters()
             ->with(['organization', 'postedBy'])
             ->orderByDesc('created_at');
 

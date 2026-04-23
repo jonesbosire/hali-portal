@@ -18,13 +18,8 @@ class BillingController extends Controller
 
     public function index(Request $request)
     {
-        $user         = $request->user();
-        $organization = $user->primaryOrganization();
-        $subscription = $organization?->subscription;
-        $invoices     = $organization?->invoices()->orderByDesc('created_at')->take(10)->get() ?? collect();
-        $plans        = \App\Models\MembershipPlan::active()->get();
-
-        return view('profile.billing', compact('user', 'organization', 'subscription', 'invoices', 'plans'));
+        $user = $request->user();
+        return view('profile.billing', compact('user'));
     }
 
     // ── Stripe Customer Portal ────────────────────────────────────────────────

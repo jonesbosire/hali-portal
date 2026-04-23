@@ -48,6 +48,11 @@ class Opportunity extends Model
         return $query->where('is_members_only', false);
     }
 
+    public function scopeFromActivePosters($query)
+    {
+        return $query->whereHas('postedBy', fn($q) => $q->where('status', 'active'));
+    }
+
     public function isExpired(): bool
     {
         return $this->deadline_at && $this->deadline_at->isPast();

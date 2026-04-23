@@ -99,6 +99,8 @@
                         ['route' => 'admin.events.index',      'label' => 'Manage Events',     'icon' => 'fa-regular fa-calendar-plus',    'color' => '#7c3a8b'],
                         ['route' => 'admin.posts.index',       'label' => 'Manage Content',    'icon' => 'fa-solid fa-pen-to-square',      'color' => '#0d6b62'],
                         ['route' => 'admin.invitations.index', 'label' => 'Invitations',       'icon' => 'fa-regular fa-envelope-open',    'color' => '#b45309'],
+                        ['route' => 'admin.tiers.index',       'label' => 'Membership Tiers',  'icon' => 'fa-solid fa-layer-group',        'color' => '#0d6b62'],
+                        ['route' => 'admin.quickbooks.index',  'label' => 'QuickBooks',         'icon' => 'fa-solid fa-receipt',            'color' => '#2ca01c'],
                     ]; @endphp
                     @foreach($adminItems as $item)
                         @php $active = request()->routeIs($item['route']) || str_starts_with(request()->route()?->getName() ?? '', str_replace('.index','',$item['route'])); @endphp

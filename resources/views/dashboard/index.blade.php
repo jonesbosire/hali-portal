@@ -201,6 +201,71 @@
         {{-- ── Right sidebar ── --}}
         <aside class="w-full xl:w-[32%] space-y-4">
 
+            {{-- Membership / Dues Card --}}
+            @php
+                $authUser  = auth()->user();
+                $userTier  = $authUser->membershipTier;
+            @endphp
+            @if($userTier || $authUser->dues_due_date)
+                @php
+                    $duesOverdue      = $authUser->duesOverdue();
+                    $duesInGrace      = $authUser->duesInGracePeriod();
+                    $duesSoon         = $authUser->duesSoon(14);
+                    $cardBorder       = $duesOverdue ? 'border-red-200' : ($duesInGrace ? 'border-amber-200' : 'border-surface-container-high');
+                    $cardBg           = $duesOverdue ? 'bg-red-50' : ($duesInGrace ? 'bg-amber-50' : 'bg-white');
+                @endphp
+                <div class="{{ $cardBg }} border {{ $cardBorder }} p-5 rounded-2xl">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-bold text-sm text-on-surface flex items-center gap-2">
+                            <i class="fa-solid fa-id-card text-primary"></i>
+                            Membership
+                        </h4>
+                        @if($duesOverdue)
+                            <span class="text-xs font-bold text-red-600 bg-red-100 px-2.5 py-0.5 rounded-full">Overdue</span>
+                        @elseif($duesInGrace)
+                            <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-0.5 rounded-full">Grace Period</span>
+                        @elseif($duesSoon)
+                            <span class="text-xs font-bold text-amber-600 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full">Due Soon</span>
+                        @else
+                            <span class="text-xs font-bold text-green-700 bg-green-100 px-2.5 py-0.5 rounded-full">Paid</span>
+                        @endif
+                    </div>
+
+                    @if($userTier)
+                        <p class="text-base font-bold text-on-surface">{{ $userTier->name }}</p>
+                        <p class="text-xs text-on-surface-variant mt-0.5">{{ $userTier->getFormattedPriceAttribute() }}</p>
+                    @endif
+
+                    @if($authUser->dues_due_date)
+                        <div class="mt-3 pt-3 border-t {{ $duesOverdue ? 'border-red-200' : ($duesInGrace ? 'border-amber-200' : 'border-surface-container') }}">
+                            <p class="text-xs text-on-surface-variant">
+                                Dues {{ $duesOverdue ? 'were due' : 'due' }}:
+                                <span class="font-semibold {{ $duesOverdue ? 'text-red-600' : ($duesInGrace ? 'text-amber-700' : 'text-on-surface') }}">
+                                    {{ $authUser->dues_due_date->format('M j, Y') }}
+                                </span>
+                            </p>
+                            @if($duesInGrace)
+                                <p class="text-xs text-amber-700 mt-1">
+                                    <i class="fa-solid fa-triangle-exclamation text-[10px]"></i>
+                                    Account suspends {{ $authUser->dues_due_date->addDays(7)->diffForHumans() }}
+                                </p>
+                            @endif
+                        </div>
+
+                        @if($duesOverdue || $duesInGrace || $duesSoon)
+                            <a href="{{ route('billing.index') }}"
+                               class="mt-3 block w-full py-2 rounded-xl text-xs font-bold text-center transition-colors
+                                   {{ $duesOverdue || $duesInGrace ? 'bg-[#7c3d1f] text-white hover:bg-[#6b3218]' : 'border border-outline-variant text-on-surface hover:bg-surface-container-low' }}">
+                                <i class="fa-solid fa-credit-card mr-1"></i>
+                                Pay Membership Dues
+                            </a>
+                        @endif
+                    @else
+                        <p class="text-xs text-on-surface-variant mt-2">Dues date will be set by Secretariat.</p>
+                    @endif
+                </div>
+            @endif
+
             {{-- Profile Strength --}}
             <div class="bg-white border border-surface-container-high p-5 rounded-2xl">
                 <div class="flex items-center justify-between mb-3">

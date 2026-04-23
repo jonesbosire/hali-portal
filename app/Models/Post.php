@@ -79,6 +79,11 @@ class Post extends Model
         return $query->where('type', $type);
     }
 
+    public function scopeFromActiveAuthors($query)
+    {
+        return $query->whereHas('author', fn($q) => $q->where('status', 'active'));
+    }
+
     public function incrementViews(): void
     {
         $this->increment('views_count');

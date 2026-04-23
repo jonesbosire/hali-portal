@@ -40,6 +40,16 @@
                         </select>
                     </div>
 
+                    <div class="min-w-44" x-show="form.role === 'member' || form.role === 'friend'">
+                        <label class="font-sans block text-xs font-semibold text-on-surface-variant mb-1.5 uppercase tracking-wide">Membership Tier <span class="normal-case text-on-surface-variant/60">(optional)</span></label>
+                        <select x-model="form.membership_tier_id" class="font-sans w-full text-sm border border-outline-variant rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-primary/20 bg-white">
+                            <option value="">— Assign later —</option>
+                            <template x-for="tier in tiers" :key="tier.id">
+                                <option :value="tier.id" x-text="tier.name + ' ($' + tier.price_usd + '/' + (tier.billing_cycle === 'annual' ? 'yr' : tier.billing_cycle) + ')'"></option>
+                            </template>
+                        </select>
+                    </div>
+
                     <div class="min-w-48">
                         <label class="font-sans block text-xs font-semibold text-on-surface-variant mb-1.5 uppercase tracking-wide">Organization <span class="normal-case text-on-surface-variant/60">(optional)</span></label>
                         <div class="flex items-center gap-2">
@@ -265,9 +275,10 @@
         return {
             // invite form state
             loading: false,
-            form: { email: '', role: 'member', organization_id: '' },
+            form: { email: '', role: 'member', organization_id: '', membership_tier_id: '' },
             inviteErrors: {},
             orgs: @json($organizations),
+            tiers: @json($tiers),
 
             // new-org modal state
             orgModal: false,
@@ -310,7 +321,7 @@
                     bumpStat('stat-pending', 1);
                     document.getElementById('total-label').textContent =
                         (parseInt(document.getElementById('stat-total').textContent) + 0) + ' total';
-                    this.form = { email: '', role: 'member', organization_id: '' };
+                    this.form = { email: '', role: 'member', organization_id: '', membership_tier_id: '' };
                 } catch (err) {
                     window.toast('error', 'Network error. Please try again.');
                 } finally {

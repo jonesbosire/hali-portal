@@ -1,124 +1,199 @@
 <x-app-layout title="Billing">
     <div class="max-w-2xl">
-        <h1 class="text-xl font-bold text-hali-text-primary mb-6">Billing & Subscription</h1>
 
-        {{-- Error / success flash --}}
+        <div class="mb-6">
+            <h1 class="font-sans text-xl font-bold text-on-surface">Billing & Membership Dues</h1>
+            <p class="font-sans text-sm text-on-surface-variant mt-0.5">Pay your annual membership dues and view your payment history.</p>
+        </div>
+
         @if(session('error'))
-            <div class="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 mb-5">
+            <div class="font-sans mb-5 flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3">
+                <i class="fa-solid fa-circle-exclamation text-red-500 flex-shrink-0"></i>
                 {{ session('error') }}
             </div>
         @endif
+        @if(session('success'))
+            <div class="font-sans mb-5 flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 text-sm rounded-xl px-4 py-3">
+                <i class="fa-solid fa-circle-check text-green-600 flex-shrink-0"></i>
+                {{ session('success') }}
+            </div>
+        @endif
 
-        {{-- Current plan --}}
-        <div class="bg-white rounded-2xl border border-hali-border shadow-card p-6 mb-5">
-            <h2 class="text-sm font-semibold text-hali-text-primary mb-4">Current Plan</h2>
-            @if($subscription && $subscription->isActive())
-                <div class="flex items-center justify-between">
+        @php
+            $authUser = auth()->user();
+            $userTier = $authUser->membershipTier;
+        @endphp
+
+        {{-- Membership dues card --}}
+        @if($userTier)
+            @php
+                $duesOverdue = $authUser->duesOverdue();
+                $duesInGrace = $authUser->duesInGracePeriod();
+                $duesSoon    = $authUser->duesSoon(14);
+                $cardBorder  = $duesOverdue ? 'border-red-200' : ($duesInGrace ? 'border-amber-200' : 'border-surface-container-high');
+            @endphp
+            <div class="bg-white rounded-2xl {{ $cardBorder }} border shadow-card p-6 mb-5" x-data="paymentForm()">
+
+                <div class="flex items-start justify-between gap-3 mb-5">
                     <div>
-                        <p class="text-lg font-bold text-primary">{{ $subscription->plan->name }}</p>
-                        <p class="text-sm text-hali-text-secondary">
-                            ${{ number_format($subscription->plan->price_usd, 2) }} / {{ $subscription->plan->billing_cycle }}
-                        </p>
-                        <p class="text-xs text-gray-400 mt-1">
-                            Renews {{ $subscription->current_period_end?->format('F j, Y') }}
-                        </p>
+                        <h2 class="font-sans text-sm font-semibold text-on-surface">Membership Dues</h2>
+                        <p class="font-sans text-2xl font-bold text-on-surface mt-1">{{ $userTier->name }}</p>
+                        <p class="font-sans text-on-surface-variant text-sm">{{ $userTier->getFormattedPriceAttribute() }}</p>
                     </div>
-                    <span class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1.5 rounded-full capitalize">
-                        {{ $subscription->status }}
-                    </span>
+                    @if($duesOverdue)
+                        <span class="font-sans text-xs font-bold text-red-600 bg-red-100 px-3 py-1 rounded-full">Overdue</span>
+                    @elseif($duesInGrace)
+                        <span class="font-sans text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full">Grace Period</span>
+                    @elseif($duesSoon)
+                        <span class="font-sans text-xs font-bold text-amber-600 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">Due Soon</span>
+                    @else
+                        <span class="font-sans text-xs font-bold text-green-700 bg-green-100 px-3 py-1 rounded-full">Paid</span>
+                    @endif
                 </div>
-                @if($subscription->plan->features)
-                    <ul class="mt-4 space-y-1">
-                        @foreach($subscription->plan->features as $feature)
-                            <li class="flex items-center gap-2 text-sm text-hali-text-secondary">
-                                <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+
+                @if($authUser->dues_due_date)
+                    <div class="bg-surface-container-lowest rounded-xl px-4 py-3 mb-5 text-sm">
+                        <p class="font-sans text-on-surface-variant">
+                            Dues {{ $duesOverdue ? 'were due on' : 'due on' }}:
+                            <span class="font-semibold {{ $duesOverdue ? 'text-red-600' : ($duesInGrace ? 'text-amber-700' : 'text-on-surface') }}">
+                                {{ $authUser->dues_due_date->format('F j, Y') }}
+                            </span>
+                        </p>
+                        @if($duesInGrace)
+                            <p class="font-sans text-amber-700 text-xs mt-1">
+                                <i class="fa-solid fa-triangle-exclamation text-[10px] mr-1"></i>
+                                Account suspends {{ $authUser->dues_due_date->addDays(7)->diffForHumans() }}
+                            </p>
+                        @endif
+                    </div>
+                @endif
+
+                @if($userTier->features && count($userTier->features))
+                    <ul class="space-y-1.5 mb-5">
+                        @foreach($userTier->features as $feature)
+                            <li class="font-sans flex items-start gap-2 text-sm text-on-surface-variant">
+                                <i class="fa-solid fa-check text-[11px] text-primary mt-0.5 flex-shrink-0"></i>
                                 {{ $feature }}
                             </li>
                         @endforeach
                     </ul>
                 @endif
 
-                {{-- Stripe Customer Portal --}}
-                <div class="mt-5 pt-4 border-t border-hali-border">
-                    <p class="text-xs text-hali-text-secondary mb-3">Need to update your card or download a receipt? Use the billing portal.</p>
-                    <form method="POST" action="{{ route('billing.portal') }}">
-                        @csrf
-                        <button type="submit"
-                                class="inline-flex items-center gap-2 text-sm font-medium bg-white border border-hali-border text-hali-text-primary px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                            Manage billing on Stripe
+                {{-- Pay now --}}
+                <form @submit.prevent="pay">
+                    <div class="flex flex-wrap items-end gap-3">
+                        <div>
+                            <label class="font-sans block text-xs font-semibold text-on-surface-variant mb-1.5 uppercase tracking-wide">Currency</label>
+                            <select x-model="currency" name="currency"
+                                    class="font-sans text-sm border border-outline-variant rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-primary/20 bg-white">
+                                <option value="USD">USD — US Dollar</option>
+                                <option value="KES">KES — Kenyan Shilling</option>
+                                <option value="GHS">GHS — Ghanaian Cedi</option>
+                                <option value="NGN">NGN — Nigerian Naira</option>
+                                <option value="ZAR">ZAR — South African Rand</option>
+                                <option value="UGX">UGX — Ugandan Shilling</option>
+                                <option value="TZS">TZS — Tanzanian Shilling</option>
+                            </select>
+                        </div>
+                        <button type="submit" :disabled="loading"
+                                class="font-sans inline-flex items-center gap-2 bg-[#7c3d1f] hover:bg-[#6b3218] disabled:opacity-60 text-white text-sm font-bold px-6 py-2.5 rounded-xl transition-colors">
+                            <i class="fa-solid text-xs" :class="loading ? 'fa-spinner fa-spin' : 'fa-credit-card'"></i>
+                            <span x-text="loading ? 'Redirecting…' : 'Pay Membership Dues'"></span>
                         </button>
-                    </form>
-                </div>
-            @elseif($subscription && $subscription->isPastDue())
-                <div class="bg-red-50 border border-red-200 rounded-xl p-4">
-                    <p class="text-red-700 font-semibold">Payment Overdue</p>
-                    <p class="text-red-600 text-sm mt-1">Please update your payment to continue accessing the portal.</p>
-                </div>
-            @else
-                <div class="text-center py-4">
-                    <p class="text-hali-text-secondary text-sm mb-4">No active subscription. Choose a plan below to continue.</p>
-                </div>
-            @endif
-        </div>
-
-        {{-- Available plans --}}
-        <div class="bg-white rounded-2xl border border-hali-border shadow-card p-6 mb-5">
-            <h2 class="text-sm font-semibold text-hali-text-primary mb-4">Available Plans</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                @foreach($plans as $plan)
-                    <div class="border rounded-xl p-4 {{ $subscription?->plan_id === $plan->id ? 'border-primary bg-primary-50' : 'border-hali-border' }}">
-                        <p class="font-bold text-hali-text-primary">{{ $plan->name }}</p>
-                        <p class="text-xl font-bold text-primary mt-1">${{ number_format($plan->price_usd, 0) }}<span class="text-sm font-normal text-hali-text-secondary">/yr</span></p>
-                        @if($plan->description)
-                            <p class="text-xs text-hali-text-secondary mt-2">{{ $plan->description }}</p>
-                        @endif
-                        @if($subscription?->plan_id !== $plan->id)
-                            <button type="button" onclick="alert('Stripe integration required — contact the HALI Secretariat to upgrade.')"
-                                    class="mt-3 w-full text-xs bg-primary text-white py-2 rounded-lg hover:bg-primary-dark transition-colors">
-                                Select Plan
-                            </button>
-                        @else
-                            <p class="mt-3 text-xs text-center text-primary font-semibold">✓ Current Plan</p>
-                        @endif
                     </div>
-                @endforeach
+                    <p class="font-sans text-xs text-on-surface-variant mt-3 flex items-center gap-1.5">
+                        <i class="fa-solid fa-lock text-[10px]"></i>
+                        Secure checkout via Flutterwave. Card, M-Pesa, and bank transfer accepted.
+                    </p>
+                </form>
             </div>
-        </div>
+        @else
+            <div class="bg-white rounded-2xl border border-surface-container-high shadow-card p-6 mb-5 text-center">
+                <i class="fa-solid fa-id-card text-3xl text-outline-variant mb-3 block"></i>
+                <p class="font-sans font-semibold text-on-surface mb-1">No membership tier assigned</p>
+                <p class="font-sans text-sm text-on-surface-variant">The Secretariat will assign your membership tier. Contact them if you believe this is an error.</p>
+            </div>
+        @endif
 
-        {{-- Invoice history --}}
-        <div class="bg-white rounded-2xl border border-hali-border shadow-card overflow-hidden">
-            <div class="p-5 border-b border-hali-border">
-                <h2 class="text-sm font-semibold text-hali-text-primary">Invoice History</h2>
+        {{-- Payment history --}}
+        @php $payments = $authUser->payments()->with('tier')->orderByDesc('created_at')->take(20)->get(); @endphp
+        <div class="bg-white rounded-2xl border border-surface-container-high shadow-card overflow-hidden">
+            <div class="px-5 py-3.5 border-b border-surface-container-high">
+                <h2 class="font-sans text-sm font-semibold text-on-surface">Payment History</h2>
             </div>
-            @if($invoices->isEmpty())
-                <div class="p-8 text-center text-sm text-hali-text-secondary">No invoices yet</div>
+            @if($payments->isEmpty())
+                <div class="font-sans p-10 text-center text-sm text-on-surface-variant">No payments yet</div>
             @else
-                <table class="w-full text-sm">
-                    <thead class="bg-gray-50 border-b border-hali-border">
-                        <tr>
-                            <th class="text-left text-xs font-semibold text-hali-text-secondary px-5 py-3">Invoice</th>
-                            <th class="text-left text-xs font-semibold text-hali-text-secondary px-5 py-3">Amount</th>
-                            <th class="text-left text-xs font-semibold text-hali-text-secondary px-5 py-3">Status</th>
-                            <th class="text-left text-xs font-semibold text-hali-text-secondary px-5 py-3">Date</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-hali-border">
-                        @foreach($invoices as $invoice)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-5 py-3 text-xs text-hali-text-secondary font-mono">{{ substr($invoice->id, 0, 8) }}...</td>
-                                <td class="px-5 py-3 font-medium">${{ number_format($invoice->amount_usd, 2) }}</td>
-                                <td class="px-5 py-3">
-                                    <span class="text-xs px-2 py-0.5 rounded-full {{ $invoice->status === 'paid' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                                        {{ ucfirst($invoice->status) }}
-                                    </span>
-                                </td>
-                                <td class="px-5 py-3 text-xs text-hali-text-secondary">{{ $invoice->created_at->format('M j, Y') }}</td>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm font-sans">
+                        <thead class="bg-surface-container/50 border-b border-surface-container-high">
+                            <tr>
+                                <th class="text-left text-xs font-semibold text-on-surface-variant px-5 py-3 uppercase tracking-wide">Reference</th>
+                                <th class="text-left text-xs font-semibold text-on-surface-variant px-4 py-3 uppercase tracking-wide">Tier</th>
+                                <th class="text-left text-xs font-semibold text-on-surface-variant px-4 py-3 uppercase tracking-wide">Amount</th>
+                                <th class="text-left text-xs font-semibold text-on-surface-variant px-4 py-3 uppercase tracking-wide">Status</th>
+                                <th class="text-left text-xs font-semibold text-on-surface-variant px-4 py-3 uppercase tracking-wide hidden md:table-cell">Date</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="divide-y divide-surface-container-high">
+                            @foreach($payments as $payment)
+                                <tr class="hover:bg-surface-container/30 transition-colors">
+                                    <td class="px-5 py-3 text-xs font-mono text-on-surface-variant">{{ Str::upper(substr($payment->gateway_reference, 0, 16)) }}</td>
+                                    <td class="px-4 py-3 text-sm text-on-surface">{{ $payment->tier?->name ?? '—' }}</td>
+                                    <td class="px-4 py-3 font-semibold text-on-surface">${{ number_format($payment->amount, 2) }} <span class="text-xs font-normal text-on-surface-variant">{{ $payment->currency }}</span></td>
+                                    <td class="px-4 py-3">
+                                        <span class="text-xs px-2.5 py-1 rounded-full font-medium
+                                            {{ $payment->status === 'successful' ? 'bg-green-100 text-green-700'
+                                             : ($payment->status === 'pending'    ? 'bg-amber-100 text-amber-700'
+                                             : 'bg-red-100 text-red-600') }}">
+                                            {{ ucfirst($payment->status) }}
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-xs text-on-surface-variant hidden md:table-cell">
+                                        {{ $payment->paid_at?->format('M j, Y') ?? $payment->created_at->format('M j, Y') }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             @endif
         </div>
     </div>
+
+    <script>
+    function paymentForm() {
+        return {
+            loading: false,
+            currency: 'USD',
+
+            async pay() {
+                this.loading = true;
+                try {
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '{{ route('payment.initiate') }}';
+
+                    const csrf = document.createElement('input');
+                    csrf.type  = 'hidden';
+                    csrf.name  = '_token';
+                    csrf.value = document.querySelector('meta[name="csrf-token"]').content;
+                    form.appendChild(csrf);
+
+                    const cur = document.createElement('input');
+                    cur.type  = 'hidden';
+                    cur.name  = 'currency';
+                    cur.value = this.currency;
+                    form.appendChild(cur);
+
+                    document.body.appendChild(form);
+                    form.submit();
+                } catch {
+                    this.loading = false;
+                }
+            },
+        };
+    }
+    </script>
+
 </x-app-layout>

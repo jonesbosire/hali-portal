@@ -42,13 +42,15 @@ class InvitationController extends Controller
         ]);
 
         $user = User::create([
-            'name'              => trim($request->first_name . ' ' . $request->last_name),
-            'email'             => $invitation->email,
-            'password'          => Hash::make($request->password),
-            'role'              => $invitation->role,
-            'status'            => 'active',
-            'email_verified_at' => now(),
-            'title'             => $request->title,
+            'name'               => trim($request->first_name . ' ' . $request->last_name),
+            'email'              => $invitation->email,
+            'password'           => Hash::make($request->password),
+            'role'               => $invitation->role,
+            'status'             => 'active',
+            'email_verified_at'  => now(),
+            'title'              => $request->title,
+            'membership_tier_id' => $invitation->membership_tier_id,
+            'dues_due_date'      => $invitation->membership_tier_id ? now()->addYear()->toDateString() : null,
         ]);
 
         // Attach to organization if specified

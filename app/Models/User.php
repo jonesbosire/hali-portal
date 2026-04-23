@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name', 'email', 'password', 'role', 'status',
         'avatar', 'title', 'bio', 'linkedin_url', 'phone',
-        'last_login_at',
+        'membership_tier_id', 'dues_due_date', 'last_login_at',
     ];
 
     protected $hidden = [
@@ -29,12 +29,23 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
-            'last_login_at' => 'datetime',
-            'password' => 'hashed',
+            'last_login_at'     => 'datetime',
+            'dues_due_date'     => 'date',
+            'password'          => 'hashed',
         ];
     }
 
     // Relationships
+    public function membershipTier()
+    {
+        return $this->belongsTo(MembershipPlan::class, 'membership_tier_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     public function organizations()
     {
         return $this->belongsToMany(Organization::class, 'organization_members', 'user_id', 'organization_id')
@@ -91,6 +102,26 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isActive(): bool
     {
         return $this->status === 'active';
+    }
+
+    public function duesOverdue(): bool
+    {
+        return $this->dues_due_date !== null && now()->isAfter($this->dues_due_date->addDays(7));
+    }
+
+    public function duesInGracePeriod(): bool
+    {
+        if ($this->dues_due_date === null) {
+            return false;
+        }
+        return now()->isAfter($this->dues_due_date) && ! $this->duesOverdue();
+    }
+
+    public function duesSoon(int $days = 14): bool
+    {
+        return $this->dues_due_date !== null
+            && now()->lessThanOrEqualTo($this->dues_due_date)
+            && now()->diffInDays($this->dues_due_date) <= $days;
     }
 
     public function getAvatarUrlAttribute(): string

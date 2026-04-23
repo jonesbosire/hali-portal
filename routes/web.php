@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\FileServeController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\OpportunityController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResourceController;
@@ -18,7 +19,9 @@ use App\Http\Controllers\Admin\AdminPostController;
 use App\Http\Controllers\Admin\AdminOpportunityController;
 use App\Http\Controllers\Admin\AdminInvitationController;
 use App\Http\Controllers\Admin\AdminBulletinController;
+use App\Http\Controllers\Admin\AdminMembershipTierController;
 use App\Http\Controllers\Admin\AdminOrganizationController;
+use App\Http\Controllers\Admin\AdminQuickBooksController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -46,12 +49,17 @@ Route::post('/invitation/{token}', [InvitationController::class, 'accept'])
     ->name('invitation.accept');
 
 // ── Stripe webhook ────────────────────────────────────────────────────────────
-// Intentionally outside auth + CSRF middleware — Stripe signs every request with
-// HMAC-SHA256 (STRIPE_WEBHOOK_SECRET). Signature is verified inside the controller.
 Route::post('/webhooks/stripe', [BillingController::class, 'webhook'])
     ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class])
     ->middleware('throttle:60,1')
     ->name('webhooks.stripe');
+
+// ── Flutterwave webhook ───────────────────────────────────────────────────────
+// Outside auth + CSRF — signature verified via verif-hash header inside controller.
+Route::post('/webhooks/flutterwave', [PaymentController::class, 'webhook'])
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class])
+    ->middleware('throttle:60,1')
+    ->name('webhooks.flutterwave');
 
 // Authenticated member routes
 Route::middleware(['auth', 'verified', 'active.user'])->group(function () {
@@ -94,6 +102,10 @@ Route::middleware(['auth', 'verified', 'active.user'])->group(function () {
     Route::get('/billing', [BillingController::class, 'index'])->name('billing.index');
     Route::post('/billing/portal', [BillingController::class, 'portal'])->name('billing.portal');
 
+    // Flutterwave membership dues payment
+    Route::post('/billing/pay', [PaymentController::class, 'initiate'])->name('payment.initiate');
+    Route::get('/billing/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
+
     // Notifications
     Route::get('/notifications', function () {
         $notifications = auth()->user()->notifications()->paginate(20);
@@ -113,6 +125,15 @@ Route::middleware(['auth', 'verified', 'active.user'])->group(function () {
 // Admin routes (super_admin + secretariat)
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    // Membership Tiers
+    Route::get('/tiers', [AdminMembershipTierController::class, 'index'])->name('tiers.index');
+    Route::get('/tiers/create', [AdminMembershipTierController::class, 'create'])->name('tiers.create');
+    Route::post('/tiers', [AdminMembershipTierController::class, 'store'])->name('tiers.store');
+    Route::get('/tiers/{tier}/edit', [AdminMembershipTierController::class, 'edit'])->name('tiers.edit');
+    Route::put('/tiers/{tier}', [AdminMembershipTierController::class, 'update'])->name('tiers.update');
+    Route::post('/tiers/{tier}/toggle', [AdminMembershipTierController::class, 'toggleActive'])->name('tiers.toggle');
+    Route::delete('/tiers/{tier}', [AdminMembershipTierController::class, 'destroy'])->name('tiers.destroy');
 
     // Members
     Route::get('/members', [AdminMemberController::class, 'index'])->name('members.index');
@@ -145,6 +166,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'admin']
     // Bulletins
     Route::resource('bulletins', AdminBulletinController::class);
     Route::post('/bulletins/{bulletin}/send', [AdminBulletinController::class, 'send'])->name('bulletins.send');
+
+    // QuickBooks Online integration
+    Route::get('/quickbooks', [AdminQuickBooksController::class, 'index'])->name('quickbooks.index');
+    Route::post('/quickbooks/authorize', [AdminQuickBooksController::class, 'authorize'])->name('quickbooks.authorize');
+    Route::get('/quickbooks/callback', [AdminQuickBooksController::class, 'callback'])->name('quickbooks.callback');
+    Route::delete('/quickbooks/disconnect', [AdminQuickBooksController::class, 'disconnect'])->name('quickbooks.disconnect');
 
     // ── Super admin only ───────────────────────────────────────────────────
     // Destructive member operations require super_admin — secretariat cannot delete users

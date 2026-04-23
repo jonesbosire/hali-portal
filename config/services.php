@@ -41,4 +41,18 @@ return [
         'from'     => env('AT_FROM', ''),
     ],
 
+    'flutterwave' => [
+        'public_key'     => env('FLUTTERWAVE_PUBLIC_KEY'),
+        'secret_key'     => env('FLUTTERWAVE_SECRET_KEY'),
+        'webhook_secret' => env('FLUTTERWAVE_WEBHOOK_SECRET'),
+        'base_url'       => 'https://api.flutterwave.com/v3',
+    ],
+
+    'quickbooks' => [
+        'client_id'     => env('QB_CLIENT_ID'),
+        'client_secret' => env('QB_CLIENT_SECRET'),
+        'redirect_uri'  => env('QB_REDIRECT_URI'),
+        'sandbox'       => env('QB_SANDBOX', false),
+    ],
+
 ];

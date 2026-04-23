@@ -11,6 +11,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $query = Post::published()
+            ->fromActiveAuthors()
             ->with(['author', 'organization', 'categories'])
             ->orderByDesc('published_at');
 

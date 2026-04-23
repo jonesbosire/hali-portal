@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\MemberInvitationMail;
 use App\Models\Invitation;
+use App\Models\MembershipPlan;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -18,16 +19,18 @@ class AdminInvitationController extends Controller
             ->paginate(20);
 
         $organizations = Organization::active()->select(['id', 'name', 'slug'])->orderBy('name')->get();
+        $tiers = MembershipPlan::active()->select(['id', 'name', 'tier_type', 'price_usd', 'billing_cycle'])->get();
 
-        return view('admin.invitations.index', compact('invitations', 'organizations'));
+        return view('admin.invitations.index', compact('invitations', 'organizations', 'tiers'));
     }
 
     public function store(Request $request)
     {
         $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
-            'email'           => 'required|email|unique:users,email',
-            'role'            => 'required|in:member,friend,secretariat',
-            'organization_id' => 'nullable|exists:organizations,id',
+            'email'              => 'required|email|unique:users,email',
+            'role'               => 'required|in:member,friend,secretariat',
+            'organization_id'    => 'nullable|exists:organizations,id',
+            'membership_tier_id' => 'nullable|exists:membership_plans,id',
         ]);
 
         if ($validator->fails()) {
@@ -47,6 +50,7 @@ class AdminInvitationController extends Controller
             role: $request->role,
             organizationId: $request->organization_id,
             invitedBy: auth()->id(),
+            membershipTierId: $request->membership_tier_id,
         );
 
         $mailError = null;

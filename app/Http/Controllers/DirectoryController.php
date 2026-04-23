@@ -48,9 +48,10 @@ class DirectoryController extends Controller
             ->with(['members', 'directoryListing', 'opportunities' => fn($q) => $q->active()->take(3)])
             ->firstOrFail();
 
-        // Show non-primary contacts only — orWherePivot would escape the pivot scope
+        // Show non-primary, active contacts only
         $teamMembers = $organization->members()
             ->wherePivot('is_primary', false)
+            ->where('status', 'active')
             ->take(10)
             ->get();
 
