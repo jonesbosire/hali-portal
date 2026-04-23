@@ -19,9 +19,9 @@ class QuickBooksService
 
     public function __construct()
     {
-        $this->clientId     = config('services.quickbooks.client_id', '');
-        $this->clientSecret = config('services.quickbooks.client_secret', '');
-        $this->redirectUri  = config('services.quickbooks.redirect_uri', '');
+        $this->clientId     = config('services.quickbooks.client_id') ?? '';
+        $this->clientSecret = config('services.quickbooks.client_secret') ?? '';
+        $this->redirectUri  = config('services.quickbooks.redirect_uri') ?? '';
         $this->sandbox      = (bool) config('services.quickbooks.sandbox', false);
 
         $this->baseUrl  = $this->sandbox
